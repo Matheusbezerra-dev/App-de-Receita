@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 
-function Login({ history }) {
+function Login() {
   const { email, password, setEmail, setPassword } = useContext(AppContext);
   const [isDisabled, setIsDisabled] = useState(true);
+
+  const history = useHistory();
 
   useEffect(() => {
     const MAXPASSLENGTH = 6;
@@ -15,8 +18,10 @@ function Login({ history }) {
   }, [email, password]);
 
   const handleBtn = () => {
-    localStorage.setItem('user', JSON.stringify(email));
-    history.push({ pathname: '/meals' });
+    localStorage.setItem('user', JSON.stringify({
+      email,
+    }));
+    history.push('/meals');
   };
 
   return (
