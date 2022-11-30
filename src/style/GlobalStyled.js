@@ -9,6 +9,9 @@ const GlobalStyled = createGlobalStyle`
   }
 
   html, body, :root {
+    max-width: 320px;
+    max-height: 640px;
+    min-height: 100%;
     min-width: 100%;
   }
 

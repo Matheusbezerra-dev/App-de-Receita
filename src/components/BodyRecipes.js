@@ -2,13 +2,14 @@ import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Recipes from './Recipes';
+import { ContainerRevenues } from '../style/styled';
 
 export default function BobyRecipes({ title }) {
+  const history = useHistory();
   const {
     filterSearch,
     setFilterSearch,
   } = useContext(AppContext);
-  const history = useHistory();
 
   const [revenues, setRevenues] = useState([]);
   const [category, setCategory] = useState([]);
@@ -40,7 +41,7 @@ export default function BobyRecipes({ title }) {
       revenuesParam(data);
     }
     if (paramType === 'Name' || paramType === 'Fist Letter') {
-      const endPoint = await fetch(`https://www.${endPointParam}.com/api/json/v1/1/filter.php?${letter}=${paraminput}`);
+      const endPoint = await fetch(`https://www.${endPointParam}.com/api/json/v1/1/search.php?${letter}=${paraminput}`);
       const data = await endPoint.json();
       revenuesParam(data);
     }
@@ -48,7 +49,7 @@ export default function BobyRecipes({ title }) {
 
   useEffect(() => {
     const getCategorys = async () => {
-      const endPoint = await fetch(`https://www.${endPointParam}.com/api/json/v1/1/search.php?c=list`);
+      const endPoint = await fetch(`https://www.${endPointParam}.com/api/json/v1/1/list.php?c=list`);
       const data = await endPoint.json();
       const categoryRender = data[title.toLowerCase()].slice(0, maxCategory);
       setCategory(categoryRender);
@@ -89,7 +90,7 @@ export default function BobyRecipes({ title }) {
   }, [filterSearch, revenuesFetch, setFilterSearch]);
 
   const handleCategory = (param) => {
-    if (category === param) {
+    if (filterCategory === param) {
       setFilterCategory('');
       setRevenues([...defaultRevenues.slice(0, maxRender)]);
     } else {
@@ -102,7 +103,7 @@ export default function BobyRecipes({ title }) {
   };
 
   return (
-    <div>
+    <ContainerRevenues>
       <section>
         {category && category.map(({ strCategory }) => (
           <button
@@ -136,7 +137,7 @@ export default function BobyRecipes({ title }) {
           />
         ))
       )}
-    </div>
+    </ContainerRevenues>
   );
 }
 

@@ -21,3 +21,10 @@ export const ImgDrinks = styled.img`
   width: 25px;
   height: 25px;
 `;
+
+export const ContainerRevenues = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  `;
