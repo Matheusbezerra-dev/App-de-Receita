@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import AppProvider from './context/AppProvider';
 import Login from './pages/Login';
 // import Recipes from './pages/Recipes';
@@ -12,7 +12,7 @@ import GlobalStyled from './style/GlobalStyled';
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <GlobalStyled />
       <AppProvider>
         <Switch>
@@ -28,7 +28,7 @@ function App() {
           <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
         </Switch>
       </AppProvider>
-    </BrowserRouter>
+    </>
   );
 }
 
