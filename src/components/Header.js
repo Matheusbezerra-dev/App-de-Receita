@@ -37,20 +37,23 @@ export default function Header({ titlePage, buttonSearch }) {
         </label>
       )}
       {buttonSearch && (
-        <div>
-          <button
-            type="button"
-            onClick={ handleClick }
-            data-testid="button-search"
-          >
-            <img
-              src={ searchIcon }
-              alt="SearchIcon"
-              data-testid="search-top-btn"
-            />
-          </button>
-        </div>)}
-      <SearchBar />
+        <>
+          <div>
+            <button
+              type="button"
+              onClick={ handleClick }
+              data-testid="button-search"
+            >
+              <img
+                src={ searchIcon }
+                alt="SearchIcon"
+                data-testid="search-top-btn"
+              />
+            </button>
+          </div>
+          <SearchBar />
+        </>
+      )}
     </header>
   );
 }
