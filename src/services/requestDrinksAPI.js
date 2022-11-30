@@ -1,7 +1,7 @@
-const requestMealsAPI = async (filterOption, valueSearch) => {
+const requestDrinkssAPI = async (filterOption, valueSearch) => {
   if (filterOption === 'ingredient-search') {
     try {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${valueSearch}`);
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${valueSearch}`);
       const results = await response.json();
       return results;
     } catch (error) {
@@ -10,7 +10,7 @@ const requestMealsAPI = async (filterOption, valueSearch) => {
   }
   if (filterOption === 'name-search') {
     try {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${valueSearch}`);
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${valueSearch}`);
       const results = await response.json();
       return results;
     } catch (error) {
@@ -19,7 +19,7 @@ const requestMealsAPI = async (filterOption, valueSearch) => {
   }
   if (filterOption === 'first-letter-search') {
     try {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${valueSearch}`);
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${valueSearch}`);
       const results = await response.json();
       return results;
     } catch (error) {
@@ -28,4 +28,4 @@ const requestMealsAPI = async (filterOption, valueSearch) => {
   }
 };
 
-export default requestMealsAPI;
+export default requestDrinkssAPI;
