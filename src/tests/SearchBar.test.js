@@ -26,4 +26,22 @@ describe('Testa o componente SearchBar', () => {
     userEvent.click(firstLetterRadio);
     expect(firstLetterRadio).toBeChecked();
   });
+  test('Testa se exibe o alert se a pesquisa for maior que um caractere ', () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => { history.push('/meals'); });
+
+    const searchBtn = screen.getByTestId('button-search');
+    expect(searchBtn).toBeInTheDocument();
+    userEvent.click(searchBtn);
+
+    const searchInput = screen.getByTestId('search-input');
+    expect(searchInput).toBeInTheDocument();
+    userEvent.type(searchInput, 'aa');
+
+    const execBtn = screen.getByTestId('exec-search-btn');
+    expect(execBtn).toBeInTheDocument();
+    userEvent.click(execBtn);
+
+    // expect(window.alert).toBeInTheDocument();
+  });
 });
