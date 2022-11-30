@@ -43,9 +43,9 @@ export default function AppProvider({ children }) {
   useEffect(() => {
     async function requestAPI() {
       const { filterOption, valueSearch } = filterSearch;
-      console.log(pathname);
+      // console.log(pathname);
       if (filterOption === 'first-letter-search' && valueSearch.length > 1) {
-        window.alert('Your search must have only 1 (one) character');
+        window.alert('Your search must have only 1 (one) character'); // eslint-disable-line no-alert
       }
       if (pathname === '/meals') {
         const request = await requestMealsAPI(filterOption, valueSearch);
@@ -57,7 +57,7 @@ export default function AppProvider({ children }) {
       }
     }
     requestAPI();
-  }, [filterSearch]);
+  }, [filterSearch, pathname]);
 
   return (
     <div>
