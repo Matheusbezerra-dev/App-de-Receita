@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import AppProvider from './context/AppProvider';
 import Login from './pages/Login';
 // import Recipes from './pages/Recipes';
@@ -12,14 +12,18 @@ import GlobalStyled from './style/GlobalStyled';
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <GlobalStyled />
       <AppProvider>
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/meals" component={ Meals } />
           <Route exact path="/drinks" component={ Drinks } />
-          <Route exact path="/meals/:id-da-receita" />
+          <Route
+            exact
+            path="/meals/:id-da-receita"
+            render={ (props) => <Meals { ...props } /> }
+          />
           <Route exact path="/drinks/:id-da-receita" />
           <Route exact path="/meals/:id-da-receita/in-progress" />
           <Route exact path="/drinks/:id-da-receita/in-progress" />
@@ -28,7 +32,7 @@ function App() {
           <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
         </Switch>
       </AppProvider>
-    </BrowserRouter>
+    </>
   );
 }
 

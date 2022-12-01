@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import AppContext from './AppContext';
 import requestMealsAPI from '../services/requestMealsAPI';
 import requestDrinkssAPI from '../services/requestDrinksAPI';
@@ -14,6 +14,8 @@ export default function AppProvider({ children }) {
   });
   const [filterInputName, setFilterInputName] = useState('');
 
+  const [resultSearch, setResultSearch] = useState([]);
+
   const contextApp = useMemo(() => ({
     email,
     setEmail,
@@ -25,6 +27,8 @@ export default function AppProvider({ children }) {
     setFilterSearch,
     filterInputName,
     setFilterInputName,
+    resultSearch,
+    setResultSearch,
   }), [
     email,
     setEmail,
@@ -36,6 +40,8 @@ export default function AppProvider({ children }) {
     setFilterSearch,
     filterInputName,
     setFilterInputName,
+    resultSearch,
+    setResultSearch,
   ]);
 
   const { pathname } = useLocation();
@@ -43,21 +49,31 @@ export default function AppProvider({ children }) {
   useEffect(() => {
     async function requestAPI() {
       const { filterOption, valueSearch } = filterSearch;
-      console.log(pathname);
       if (filterOption === 'first-letter-search' && valueSearch.length > 1) {
         window.alert('Your search must have only 1 (one) character');
       }
       if (pathname === '/meals') {
         const request = await requestMealsAPI(filterOption, valueSearch);
-        return request;
+        setResultSearch(request);
       }
       if (pathname === '/drinks') {
         const request = await requestDrinkssAPI(filterOption, valueSearch);
-        return request;
+        setResultSearch(request);
       }
     }
     requestAPI();
-  }, [filterSearch]);
+  }, [filterSearch, pathname]);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    if (pathname === '/meals' && resultSearch?.length === 1) {
+      history.push(`/meals/${resultSearch[0].idMeal}`);
+    }
+    if (pathname === '/drinks' && resultSearch?.length === 1) {
+      history.push(`/drinks/${resultSearch[0].idDrink}`);
+    }
+  }, [resultSearch]);
 
   return (
     <div>

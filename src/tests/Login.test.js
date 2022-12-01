@@ -66,8 +66,6 @@ describe('Testa a page Login', () => {
     expect(loginBtn).toBeEnabled();
     userEvent.click(loginBtn);
 
-    setTimeout(() => {
-      expect(history.location.pathname).toBe('/meals');
-    }, 1500);
+    expect(history.location.pathname).toBe('/meals');
   });
 });
