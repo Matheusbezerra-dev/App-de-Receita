@@ -50,7 +50,7 @@ export default function AppProvider({ children }) {
     async function requestAPI() {
       const { filterOption, valueSearch } = filterSearch;
       if (filterOption === 'first-letter-search' && valueSearch.length > 1) {
-        window.alert('Your search must have only 1 (one) character');
+        global.alert('Your search must have only 1 (one) character');
       }
       if (pathname === '/meals') {
         const request = await requestMealsAPI(filterOption, valueSearch);

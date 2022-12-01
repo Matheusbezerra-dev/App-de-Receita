@@ -1,8 +1,6 @@
 import React from 'react';
 import { act, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-// import Profile from '../components/Profile';
-// import App from '../App';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 
@@ -27,5 +25,21 @@ describe('Testa o componente Profile', () => {
     const doneRecipes = screen.getByTestId('profile-done-btn');
     userEvent.click(doneRecipes);
     expect(history.location.pathname).toBe('/done-recipes');
+  });
+  test('Testa se, ao clicar no botão "Favorite Recipes", o usuário é redirecionado para "/favorite-recipes" ', () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => { history.push('/profile'); });
+    const favoriteRecipes = screen.getByTestId('profile-favorite-btn');
+    userEvent.click(favoriteRecipes);
+    expect(history.location.pathname).toBe('/favorite-recipes');
+  });
+  test('Testa se, ao clicar no botão "Logout", o usuário é redirecionado para "/" e o localStorage é limpo ', () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => { history.push('/profile'); });
+    const logout = screen.getByTestId('profile-logout-btn');
+    userEvent.click(logout);
+    expect(history.location.pathname).toBe('/');
+    const storage = localStorage.getItem('email');
+    expect(storage).toBe(null);
   });
 });

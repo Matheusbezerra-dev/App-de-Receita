@@ -11,6 +11,13 @@ export default function Profile() {
   const handleDoneBtn = () => {
     history.push('/done-recipes');
   };
+  const handleFavoriteBtn = () => {
+    history.push('/favorite-recipes');
+  };
+  const handleLogoutBtn = () => {
+    localStorage.clear();
+    history.push('/');
+  };
   return (
     <div>
       <Header titlePage="Profile" buttonSearch={ false } />
@@ -29,11 +36,20 @@ export default function Profile() {
           <Button
             type="button"
             data-testid="profile-favorite-btn"
+            onClick={ handleFavoriteBtn }
           >
             Favorite Recipes
           </Button>
         </p>
-        <p><Button type="button" data-testid="profile-logout-btn">Logout</Button></p>
+        <p>
+          <Button
+            type="button"
+            data-testid="profile-logout-btn"
+            onClick={ handleLogoutBtn }
+          >
+            Logout
+          </Button>
+        </p>
       </div>
       <Footer />
     </div>

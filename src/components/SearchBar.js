@@ -21,7 +21,7 @@ function SearchBar() {
       valueSearch: filterInputName,
     });
     if (resultSearch?.length === undefined) {
-      window.alert('Sorry, we haven\'t found any recipes for these filters.');
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
   }
 
