@@ -10,7 +10,7 @@ import Profile from './components/Profile';
 import FavoriteRecipes from './components/FavoriteRecipes';
 import GlobalStyled from './style/GlobalStyled';
 
-function App() {
+export default function App() {
   return (
     <>
       <GlobalStyled />
@@ -35,5 +35,3 @@ function App() {
     </>
   );
 }
-
-export default App;
