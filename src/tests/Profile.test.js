@@ -42,4 +42,11 @@ describe('Testa o componente Profile', () => {
     const storage = localStorage.getItem('email');
     expect(storage).toBe(null);
   });
+  test('Testa se, ao ir para a tela de perfil sem login, é renderizada a mensagem "Não efetuou login" ', () => {
+    const { history } = renderWithRouter(<App />);
+    localStorage.clear();
+    act(() => { history.push('/profile'); });
+    const profileEmail = screen.getByTestId('profile-email');
+    expect(profileEmail).toHaveTextContent('Não efetuou login');
+  });
 });

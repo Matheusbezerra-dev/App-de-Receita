@@ -5,7 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 export default function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const storage = localStorage.getItem('user');
   const history = useHistory();
   const handleDoneBtn = () => {
     history.push('/done-recipes');
@@ -21,7 +21,9 @@ export default function Profile() {
     <div>
       <Header titlePage="Profile" buttonSearch={ false } />
       <div>
-        <p data-testid="profile-email">{email}</p>
+        <p data-testid="profile-email">
+          {storage === null ? 'Não efetuou login' : JSON.parse(storage).email}
+        </p>
         <p>
           <Button
             type="button"
