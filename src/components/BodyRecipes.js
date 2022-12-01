@@ -68,6 +68,7 @@ export default function BobyRecipes({ title }) {
     getRevenues();
   }, [endPointParam, title]);
 
+  // buscando o resultado da categoria clicando pelo botão.
   useEffect(() => {
     async function handleSearchCategory() {
       if (filterCategory) {

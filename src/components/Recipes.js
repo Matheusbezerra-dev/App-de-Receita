@@ -11,7 +11,7 @@ export default function Recipes(props) {
       <RecipesLinks data-testid={ `${index}-recipe-card` }>
         <img
           src={ cardInfo[type] }
-          alt={ `${name}` }
+          alt={ `${cardInfo[name]}` }
           data-testid={ `${index}-card-img` }
         />
         <h4 data-testid={ `${index}-card-name` }>{cardInfo[name]}</h4>
