@@ -10,11 +10,11 @@ export default function Header({ titlePage, buttonSearch }) {
 
   const handleClick = () => (setHiInput(!hiInput));
 
-  const { setFilterInputName } = useContext(AppContext);
+  const { filterInputName, setFilterInputName } = useContext(AppContext);
 
-  function handleChangeSearchInput({ target }) {
-    setFilterInputName(target.value);
-  }
+  // function handleChangeSearchInput({ target }) {
+  //   setFilterInputName(target.value);
+  // }
 
   return (
     <header>
@@ -32,7 +32,8 @@ export default function Header({ titlePage, buttonSearch }) {
             type="text"
             data-testid="search-input"
             id="search"
-            onChange={ handleChangeSearchInput }
+            value={ filterInputName }
+            onChange={ (e) => setFilterInputName(e.target.value) }
           />
         </label>
       )}

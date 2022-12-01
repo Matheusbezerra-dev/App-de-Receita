@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import AppProvider from './context/AppProvider';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,9 +9,7 @@ ReactDOM
   .createRoot(document.getElementById('root'))
   .render(
     <BrowserRouter>
-      <AppProvider>
-        <App />
-      </AppProvider>
+      <App />
     </BrowserRouter>,
   );
 

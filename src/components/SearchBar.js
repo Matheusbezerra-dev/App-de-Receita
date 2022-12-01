@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 
 function SearchBar() {
@@ -7,6 +8,7 @@ function SearchBar() {
     setFilterRadio,
     setFilterSearch,
     filterInputName,
+    resultSearch,
   } = useContext(AppContext);
 
   function handleChange({ target }) {
@@ -18,7 +20,13 @@ function SearchBar() {
       filterOption: filterRadio,
       valueSearch: filterInputName,
     });
+    if (resultSearch?.length === undefined) {
+      window.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
   }
+
+  const MAX_LENGTH = 12;
+  const { pathname } = useLocation();
 
   return (
     <div>
@@ -62,6 +70,32 @@ function SearchBar() {
       >
         Buscar
       </button>
+      <div>
+        {resultSearch && resultSearch.slice(0, MAX_LENGTH).map((result, index) => {
+          if (pathname === '/meals') {
+            return (
+              <div key={ result.idMeal } data-testid={ `${index}-recipe-card` }>
+                <p data-testid={ `${index}-card-name` }>{result.strMeal}</p>
+                <img
+                  src={ result.strMealThumb }
+                  alt={ result.strMeal }
+                  data-testid={ `${index}-card-img` }
+                />
+              </div>
+            );
+          }
+          return (
+            <div key={ result.idDrink } data-testid={ `${index}-recipe-card` }>
+              <p data-testid={ `${index}-card-name` }>{result.strDrink}</p>
+              <img
+                src={ result.strDrinkThumb }
+                alt={ result.strDrink }
+                data-testid={ `${index}-card-img` }
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
