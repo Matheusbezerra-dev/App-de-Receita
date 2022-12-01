@@ -44,4 +44,7 @@ describe('Testa o componente SearchBar', () => {
 
     // expect(window.alert).toBeInTheDocument();
   });
+  test('Testa se, ao encontrar um resultado válido, os elementos são exibidos na tela', () => {
+
+  });
 });

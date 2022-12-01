@@ -14,7 +14,7 @@ export default function AppProvider({ children }) {
   });
   const [filterInputName, setFilterInputName] = useState('');
 
-  const [resultSearch, setResultSearch] = useState({});
+  const [resultSearch, setResultSearch] = useState([]);
 
   const contextApp = useMemo(() => ({
     email,
@@ -50,7 +50,7 @@ export default function AppProvider({ children }) {
     async function requestAPI() {
       const { filterOption, valueSearch } = filterSearch;
       if (filterOption === 'first-letter-search' && valueSearch.length > 1) {
-        window.alert('Your search must have only 1 (one) character'); // eslint-disable-line no-alert
+        window.alert('Your search must have only 1 (one) character');
       }
       if (pathname === '/meals') {
         const request = await requestMealsAPI(filterOption, valueSearch);
@@ -67,17 +67,12 @@ export default function AppProvider({ children }) {
   const history = useHistory();
 
   useEffect(() => {
-    if (resultSearch?.meals?.length === 0) {
-      // eslint-disable-next-line no-alert
-      window.alert('Sorry, we haven\'t found any recipes for these filters.');
+    if (pathname === '/meals' && resultSearch?.length === 1) {
+      history.push(`/meals/${resultSearch[0].idMeal}`);
     }
-    if (pathname === '/meals' && resultSearch?.meals?.length === 1) {
-      history.push(`/meals/${resultSearch.meals[0].idMeal}`);
+    if (pathname === '/drinks' && resultSearch?.length === 1) {
+      history.push(`/drinks/${resultSearch[0].idDrink}`);
     }
-    if (pathname === '/drinks' && resultSearch?.drinks?.length === 1) {
-      history.push(`/drinks/${resultSearch.drinks[0].idDrink}`);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resultSearch]);
 
   return (
