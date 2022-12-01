@@ -1,9 +1,8 @@
-import React/* , { useContext } */ from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import Header from './Header';
 import Footer from './Footer';
-// import AppContext from '../context/AppContext';
 
 export default function Profile() {
   const { email } = JSON.parse(localStorage.getItem('user'));
