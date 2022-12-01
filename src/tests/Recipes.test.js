@@ -1,6 +1,6 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import Recipes from '../pages/Recipes';
+import Recipes from '../components/Recipes';
 import renderWithRouter from './helpers/renderWithRouter';
 
 describe('Testa a página Recipes', () => {
