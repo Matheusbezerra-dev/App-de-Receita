@@ -67,6 +67,9 @@ export default function AppProvider({ children }) {
   const history = useHistory();
 
   useEffect(() => {
+    if (resultSearch?.meals?.length === 0) {
+      window.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
     if (pathname === '/meals' && resultSearch?.meals?.length === 1) {
       history.push(`/meals/${resultSearch.meals[0].idMeal}`);
     }
