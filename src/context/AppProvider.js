@@ -68,6 +68,7 @@ export default function AppProvider({ children }) {
 
   useEffect(() => {
     if (resultSearch?.meals?.length === 0) {
+      // eslint-disable-next-line no-alert
       window.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
     if (pathname === '/meals' && resultSearch?.meals?.length === 1) {
@@ -76,6 +77,7 @@ export default function AppProvider({ children }) {
     if (pathname === '/drinks' && resultSearch?.drinks?.length === 1) {
       history.push(`/drinks/${resultSearch.drinks[0].idDrink}`);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resultSearch]);
 
   return (
