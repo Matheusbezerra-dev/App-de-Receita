@@ -11,6 +11,7 @@ export default function AppProvider({ children }) {
   const [filterSearch, setFilterSearch] = useState({});
   const [filterInputName, setFilterInputName] = useState('');
   const [resultSearch, setResultSearch] = useState([]);
+  const [renderedSearchResults, setRenderedSearchResults] = useState(false);
 
   const { pathname } = useLocation();
   const history = useHistory();
@@ -45,12 +46,20 @@ export default function AppProvider({ children }) {
       }
     }
     oneResultSearch();
+
     function noResults() {
       if (resultSearch === null) {
         global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
     }
     noResults();
+
+    function conditionalRenderResults() {
+      if (resultSearch.length > 1) {
+        setRenderedSearchResults(true);
+      }
+    }
+    conditionalRenderResults();
   }, [resultSearch, history, pathname]);
 
   const contextApp = useMemo(() => ({
@@ -65,6 +74,7 @@ export default function AppProvider({ children }) {
     resultSearch,
     setResultSearch,
     requestAPI,
+    renderedSearchResults,
   }), [
     email,
     setEmail,
@@ -77,6 +87,7 @@ export default function AppProvider({ children }) {
     resultSearch,
     setResultSearch,
     requestAPI,
+    renderedSearchResults,
   ]);
 
   return (
