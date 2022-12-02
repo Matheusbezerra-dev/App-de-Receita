@@ -4,25 +4,21 @@ import AppContext from '../context/AppContext';
 
 function SearchBar() {
   const {
-    filterRadio,
-    setFilterRadio,
+    filterSearch,
     setFilterSearch,
-    filterInputName,
     resultSearch,
+    requestAPI,
   } = useContext(AppContext);
 
   function handleChange({ target }) {
-    setFilterRadio(target.value);
+    setFilterSearch({
+      ...filterSearch,
+      filterOption: target.value,
+    });
   }
 
-  function handleClick() {
-    setFilterSearch({
-      filterOption: filterRadio,
-      valueSearch: filterInputName,
-    });
-    if (resultSearch?.length === undefined) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
-    }
+  async function handleClick() {
+    await requestAPI();
   }
 
   const MAX_LENGTH = 12;

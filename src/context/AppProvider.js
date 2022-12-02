@@ -2,78 +2,82 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import AppContext from './AppContext';
 import requestMealsAPI from '../services/requestMealsAPI';
-import requestDrinkssAPI from '../services/requestDrinksAPI';
+import requestDrinksAPI from '../services/requestDrinksAPI';
 
 export default function AppProvider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [filterRadio, setFilterRadio] = useState('');
-  const [filterSearch, setFilterSearch] = useState({
-    filterOption: '',
-    valueSearch: '',
-  });
-  const [filterInputName, setFilterInputName] = useState('');
 
+  const [filterSearch, setFilterSearch] = useState({});
+  const [filterInputName, setFilterInputName] = useState('');
   const [resultSearch, setResultSearch] = useState([]);
+
+  const { pathname } = useLocation();
+  const history = useHistory();
+
+  async function requestAPI() {
+    const { filterOption, valueSearch } = filterSearch;
+    if (filterOption === 'first-letter-search' && valueSearch.length > 1) {
+      global.alert('Your search must have only 1 (one) character');
+    }
+    if (pathname === '/meals') {
+      const response = await requestMealsAPI(filterOption, valueSearch);
+      if (response === undefined) {
+        setResultSearch([]);
+      }
+      setResultSearch(response);
+    } else if (pathname === '/drinks') {
+      const response = await requestDrinksAPI(filterOption, valueSearch);
+      if (response === undefined) {
+        setResultSearch([]);
+      }
+      setResultSearch(response);
+    }
+  }
+
+  useEffect(() => {
+    function oneResultSearch() {
+      if (pathname === '/meals' && resultSearch.length === 1) {
+        history.push(`/meals/${resultSearch[0].idMeal}`);
+      }
+      if (pathname === '/drinks' && resultSearch.length === 1) {
+        history.push(`/drinks/${resultSearch[0].idDrink}`);
+      }
+    }
+    oneResultSearch();
+    function noResults() {
+      if (resultSearch === null) {
+        global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
+    }
+    noResults();
+  }, [resultSearch, history, pathname]);
 
   const contextApp = useMemo(() => ({
     email,
     setEmail,
     password,
     setPassword,
-    filterRadio,
-    setFilterRadio,
     filterSearch,
     setFilterSearch,
     filterInputName,
     setFilterInputName,
     resultSearch,
     setResultSearch,
+    requestAPI,
   }), [
     email,
     setEmail,
     password,
     setPassword,
-    filterRadio,
-    setFilterRadio,
     filterSearch,
     setFilterSearch,
     filterInputName,
     setFilterInputName,
     resultSearch,
     setResultSearch,
+    requestAPI,
   ]);
-
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    async function requestAPI() {
-      const { filterOption, valueSearch } = filterSearch;
-      if (filterOption === 'first-letter-search' && valueSearch.length > 1) {
-        global.alert('Your search must have only 1 (one) character');
-      }
-      if (pathname === '/meals') {
-        const request = await requestMealsAPI(filterOption, valueSearch);
-        setResultSearch(request);
-      }
-      if (pathname === '/drinks') {
-        const request = await requestDrinkssAPI(filterOption, valueSearch);
-        setResultSearch(request);
-      }
-    }
-    requestAPI();
-  }, [filterSearch, pathname]);
-
-  const history = useHistory();
-
-  useEffect(() => {
-    if (pathname === '/meals' && resultSearch?.length === 1) {
-      history.push(`/meals/${resultSearch[0].idMeal}`);
-    }
-    if (pathname === '/drinks' && resultSearch?.length === 1) {
-      history.push(`/drinks/${resultSearch[0].idDrink}`);
-    }
-  }, [resultSearch]);
 
   return (
     <div>
