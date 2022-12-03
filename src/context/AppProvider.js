@@ -37,29 +37,22 @@ export default function AppProvider({ children }) {
   }
 
   useEffect(() => {
-    function oneResultSearch() {
-      if (pathname === '/meals' && resultSearch.length === 1) {
-        history.push(`/meals/${resultSearch[0].idMeal}`);
-      }
-      if (pathname === '/drinks' && resultSearch.length === 1) {
-        history.push(`/drinks/${resultSearch[0].idDrink}`);
-      }
-    }
-    oneResultSearch();
-
-    function noResults() {
+    function resultsConditions() {
       if (resultSearch === null) {
         global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      } else {
+        if (pathname === '/meals' && resultSearch.length === 1) {
+          history.push(`/meals/${resultSearch[0].idMeal}`);
+        }
+        if (pathname === '/drinks' && resultSearch.length === 1) {
+          history.push(`/drinks/${resultSearch[0].idDrink}`);
+        }
+        if (resultSearch.length > 1) {
+          setRenderedSearchResults(true);
+        }
       }
     }
-    noResults();
-
-    function conditionalRenderResults() {
-      if (resultSearch.length > 1) {
-        setRenderedSearchResults(true);
-      }
-    }
-    conditionalRenderResults();
+    resultsConditions();
   }, [resultSearch, history, pathname]);
 
   const contextApp = useMemo(() => ({
