@@ -9,6 +9,7 @@ export default function BobyRecipes({ title }) {
   const {
     filterSearch,
     setFilterSearch,
+    renderedSearchResults,
   } = useContext(AppContext);
 
   const [revenues, setRevenues] = useState([]);
@@ -125,7 +126,7 @@ export default function BobyRecipes({ title }) {
         </button>
       </section>
 
-      {revenues && (
+      {!renderedSearchResults && revenues && (
         revenues.map((revenue, index) => (
           <Recipes
             title={ title.toLowerCase() }

@@ -11,6 +11,7 @@ export default function AppProvider({ children }) {
   const [filterSearch, setFilterSearch] = useState({});
   const [filterInputName, setFilterInputName] = useState('');
   const [resultSearch, setResultSearch] = useState([]);
+  const [renderedSearchResults, setRenderedSearchResults] = useState(false);
 
   const { pathname } = useLocation();
   const history = useHistory();
@@ -36,21 +37,22 @@ export default function AppProvider({ children }) {
   }
 
   useEffect(() => {
-    function oneResultSearch() {
-      if (pathname === '/meals' && resultSearch.length === 1) {
-        history.push(`/meals/${resultSearch[0].idMeal}`);
-      }
-      if (pathname === '/drinks' && resultSearch.length === 1) {
-        history.push(`/drinks/${resultSearch[0].idDrink}`);
-      }
-    }
-    oneResultSearch();
-    function noResults() {
+    function resultsConditions() {
       if (resultSearch === null) {
         global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      } else {
+        if (pathname === '/meals' && resultSearch.length === 1) {
+          history.push(`/meals/${resultSearch[0].idMeal}`);
+        }
+        if (pathname === '/drinks' && resultSearch.length === 1) {
+          history.push(`/drinks/${resultSearch[0].idDrink}`);
+        }
+        if (resultSearch.length > 1) {
+          setRenderedSearchResults(true);
+        }
       }
     }
-    noResults();
+    resultsConditions();
   }, [resultSearch, history, pathname]);
 
   const contextApp = useMemo(() => ({
@@ -65,6 +67,7 @@ export default function AppProvider({ children }) {
     resultSearch,
     setResultSearch,
     requestAPI,
+    renderedSearchResults,
   }), [
     email,
     setEmail,
@@ -77,6 +80,7 @@ export default function AppProvider({ children }) {
     resultSearch,
     setResultSearch,
     requestAPI,
+    renderedSearchResults,
   ]);
 
   return (
