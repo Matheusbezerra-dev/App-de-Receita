@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
-import { ContainerRecipesDetails } from '../style/styled';
+import { ContainerRecipesDetails, ButtonStar } from '../style/styled';
 
 export default function RecipeDetails() {
   const history = useHistory();
@@ -165,6 +165,12 @@ export default function RecipeDetails() {
             ))}
           </Carousel>
         )}
+      <ButtonStar
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Start Recipe
+      </ButtonStar>
     </ContainerRecipesDetails>
   );
 }

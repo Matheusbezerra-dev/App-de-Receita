@@ -46,3 +46,8 @@ export const ContainerRecipesDetails = styled.div`
   width: 360px;
   height: auto;
 `;
+
+export const ButtonStar = styled.button`
+  position: fixed;
+  bottom: 0px;
+`;
