@@ -7,6 +7,9 @@ export default function RecipeDetails() {
   const history = useHistory();
   const [details, setDetails] = useState({});
   const [ingredients, setIngredients] = useState([]);
+  const [recommendationMeals, setRecommendationMeals] = useState([]);
+  const [recommendationDrinks, setRecommendationDrinks] = useState([]);
+  const [startButton, setStartButton] = useState(true);
 
   const id = history.location.pathname.split('/')[2];
   const titlePage = history.location.pathname.includes('meals') ? 'meals' : 'drinks';
@@ -56,9 +59,6 @@ export default function RecipeDetails() {
     getIngredients();
   }, [details, getIngredients]);
 
-  const [recommendationMeals, setRecommendationMeals] = useState([]);
-  const [recommendationDrinks, setRecommendationDrinks] = useState([]);
-
   const fetchAPIRecommendations = useCallback(async () => {
     let endpoint = '';
     const MAX_LENGTH = 6;
@@ -81,6 +81,25 @@ export default function RecipeDetails() {
   useEffect(() => {
     fetchAPIRecommendations();
   }, [fetchAPIRecommendations, titlePage]);
+
+  const getInprogress = useCallback(() => {
+    if (localStorage.getItem('inProgressRecipes') !== null) {
+      const continueRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (titlePage === 'meals') {
+        const newData = Object.keys(continueRecipes.meals);
+        const haveRecipe = newData.some((e) => e === id);
+        setStartButton(!haveRecipe);
+      } else {
+        const newData = Object.keys(continueRecipes.drinks);
+        const haveRecipe = newData.some((e) => e === id);
+        setStartButton(!haveRecipe);
+      }
+    }
+  }, [id, titlePage]);
+
+  useEffect(() => {
+    getInprogress();
+  }, [getInprogress]);
 
   return (
     <ContainerRecipesDetails>
@@ -169,7 +188,7 @@ export default function RecipeDetails() {
         type="button"
         data-testid="start-recipe-btn"
       >
-        Start Recipe
+        {startButton ? ('Start Recipe') : ('Continue Recipe')}
       </ButtonStar>
     </ContainerRecipesDetails>
   );
