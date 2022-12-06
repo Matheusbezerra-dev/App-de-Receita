@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const FooterContainer = styled.footer`
   bottom: 0;
-  width: 360px;
+  width: 360px; 
   height: 52px;
   position: fixed;
   display: flex;
@@ -36,4 +36,13 @@ export const RecipesLinks = styled.div`
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 20px;
+`;
+
+export const ContainerRecipesDetails = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 360px;
+  height: auto;
 `;
