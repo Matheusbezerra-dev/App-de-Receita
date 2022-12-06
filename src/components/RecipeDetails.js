@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export default function RecipeDetails() {
   const history = useHistory();
@@ -44,9 +44,9 @@ export default function RecipeDetails() {
 
       <div>
         <h2>Ingredients</h2>
-        <ul>
+        {/* <ul>
 
-        </ul>
+        </ul> */}
       </div>
 
       <p data-testid="recipe-category">
