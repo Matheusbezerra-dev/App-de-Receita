@@ -87,12 +87,12 @@ export default function RecipeDetails() {
       const continueRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
       if (titlePage === 'meals') {
         const newData = Object.keys(continueRecipes.meals);
-        const haveRecipe = newData.some((e) => e === id);
-        setStartButton(!haveRecipe);
+        const recipe = newData.some((e) => e === id);
+        setStartButton(!recipe);
       } else {
         const newData = Object.keys(continueRecipes.drinks);
-        const haveRecipe = newData.some((e) => e === id);
-        setStartButton(!haveRecipe);
+        const recipe = newData.some((e) => e === id);
+        setStartButton(!recipe);
       }
     }
   }, [id, titlePage]);
