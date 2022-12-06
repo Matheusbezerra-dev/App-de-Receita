@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-// import { Carousel } from 'react-bootstrap';
+import { Carousel } from 'react-bootstrap';
 import { ContainerRecipesDetails } from '../style/styled';
 
 export default function RecipeDetails() {
@@ -56,12 +56,12 @@ export default function RecipeDetails() {
     getIngredients();
   }, [details, getIngredients]);
 
-  const [recommendationMeals, setRecommendationMeals] = useState({});
-  const [recommendationDrinks, setRecommendationDrinks] = useState({});
+  const [recommendationMeals, setRecommendationMeals] = useState([]);
+  const [recommendationDrinks, setRecommendationDrinks] = useState([]);
 
   const fetchAPIRecommendations = useCallback(async () => {
     let endpoint = '';
-    const MAX_LENGTH = 12;
+    const MAX_LENGTH = 6;
     if (titlePage === 'meals') {
       endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     } else {
@@ -77,21 +77,10 @@ export default function RecipeDetails() {
       setRecommendationMeals(meals.slice(0, MAX_LENGTH));
     }
   }, [titlePage]);
-  console.log('====================================');
-  console.log(recommendationDrinks);
-  console.log('===================================');
-  console.log(recommendationMeals);
-  console.log('====================================');
 
   useEffect(() => {
     fetchAPIRecommendations();
   }, [fetchAPIRecommendations, titlePage]);
-
-//   const Carousel = (<Carousel>
-//   <Carousel.Item>
-      
-//   </Carousel.Item>
-// </Carousel>)
 
   return (
     <ContainerRecipesDetails>
@@ -136,6 +125,46 @@ export default function RecipeDetails() {
         height="280"
         src={ details.strYoutube || details.strVideo }
       />
+
+      {titlePage === 'meals'
+        ? (
+          <Carousel fade>
+            {recommendationDrinks.map((e, i) => (
+              <Carousel.Item key={ i }>
+                <div data-testid={ `${i}-recommendation-card` }>
+                  <img
+                    src={ e.strDrinkThumb }
+                    alt={ e.strDrink }
+                    width="250px"
+                    height="250px"
+                  />
+                  <div data-testid={ `${i}-recommendation-title` }>
+                    <p>{e.strDrink}</p>
+                  </div>
+                </div>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        )
+        : (
+          <Carousel fade>
+            {recommendationMeals.map((e, i) => (
+              <Carousel.Item key={ i }>
+                <div data-testid={ `${i}-recommendation-card` }>
+                  <img
+                    src={ e.strMealThumb }
+                    alt={ e.strMeal }
+                    width="250px"
+                    height="250px"
+                  />
+                  <div data-testid={ `${i}-recommendation-title` }>
+                    <p>{e.strMeal}</p>
+                  </div>
+                </div>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        )}
     </ContainerRecipesDetails>
   );
 }
