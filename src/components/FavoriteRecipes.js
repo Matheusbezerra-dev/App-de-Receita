@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from './Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import './FavoriteRecipes.css';
-import { useHistory } from 'react-router-dom';
 
 const copy = require('clipboard-copy');
 
@@ -93,75 +93,107 @@ export default function FavoriteRecipes() {
         if (favRecipe.type === 'meal') {
           return (
             <div key={ favRecipe.id } data-testid={ `${index}-recipe-card` }>
-              <img
-                className="recipe-img"
-                src={ favRecipe.image }
-                alt={ favRecipe.name }
-                data-testid={ `${index}-horizontal-image` }
-                onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
-              />
-              <p
-                data-testid={ `${index}-horizontal-name` }
+              <button
+                type="button"
                 onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
               >
-                {favRecipe.name}
-              </p>
+                <img
+                  className="recipe-img"
+                  src={ favRecipe.image }
+                  alt={ favRecipe.name }
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </button>
+              <button
+                type="button"
+                onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
+              >
+                <p
+                  data-testid={ `${index}-horizontal-name` }
+                >
+                  {favRecipe.name}
+                </p>
+              </button>
               <p
                 data-testid={ `${index}-horizontal-top-text` }
               >
                 {`${favRecipe.nationality} - ${favRecipe.category}`}
               </p>
-              <img
-                className="img"
-                data-testid={ `${index}-horizontal-share-btn` }
-                src={ shareIcon }
-                alt="button"
+              <button
+                type="button"
                 onClick={ () => setUrlCopy(favRecipe.id, favRecipe.type) }
-              />
-              <img
-                className="img"
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                src={ blackHeartIcon }
-                alt="button"
+              >
+                <img
+                  className="img"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  src={ shareIcon }
+                  alt="button"
+                />
+              </button>
+              <button
+                type="button"
                 onClick={ () => removeFavorite(favRecipe.id) }
-              />
+              >
+                <img
+                  className="img"
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  src={ blackHeartIcon }
+                  alt="button"
+                />
+              </button>
             </div>
           );
         }
         return (
           <div key={ favRecipe.id } data-testid={ `${index}-recipe-card` }>
-            <img
-              className="recipe-img"
-              src={ favRecipe.image }
-              alt={ favRecipe.name }
-              data-testid={ `${index}-horizontal-image` }
-              onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
-            />
-            <p
-              data-testid={ `${index}-horizontal-name` }
+            <button
+              type="button"
               onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
             >
-              {favRecipe.name}
-            </p>
+              <img
+                className="recipe-img"
+                src={ favRecipe.image }
+                alt={ favRecipe.name }
+                data-testid={ `${index}-horizontal-image` }
+              />
+            </button>
+            <button
+              type="button"
+              onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
+            >
+              <p
+                data-testid={ `${index}-horizontal-name` }
+              >
+                {favRecipe.name}
+              </p>
+            </button>
             <p
               data-testid={ `${index}-horizontal-top-text` }
             >
               {favRecipe.alcoholicOrNot}
             </p>
-            <img
-              className="img"
-              data-testid={ `${index}-horizontal-share-btn` }
-              src={ shareIcon }
-              alt="button"
+            <button
+              type="button"
               onClick={ () => setUrlCopy(favRecipe.id, favRecipe.type) }
-            />
-            <img
-              className="img"
-              data-testid={ `${index}-horizontal-favorite-btn` }
-              src={ blackHeartIcon }
-              alt="button"
+            >
+              <img
+                className="img"
+                data-testid={ `${index}-horizontal-share-btn` }
+                src={ shareIcon }
+                alt="button"
+              />
+            </button>
+            <button
+              type="button"
               onClick={ () => removeFavorite(favRecipe.id) }
-            />
+            >
+              <img
+                className="img"
+                data-testid={ `${index}-horizontal-favorite-btn` }
+                src={ blackHeartIcon }
+                alt="button"
+              />
+            </button>
           </div>
         );
       })}
