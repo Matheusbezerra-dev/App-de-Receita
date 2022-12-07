@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import AppContext from './AppContext';
 import requestMealsAPI from '../services/requestMealsAPI';
@@ -16,7 +16,7 @@ export default function AppProvider({ children }) {
   const { pathname } = useLocation();
   const history = useHistory();
 
-  async function requestAPI() {
+  const requestAPI = useCallback(async () => {
     const { filterOption, valueSearch } = filterSearch;
     if (filterOption === 'first-letter-search' && valueSearch.length > 1) {
       global.alert('Your search must have only 1 (one) character');
@@ -34,7 +34,7 @@ export default function AppProvider({ children }) {
       }
       setResultSearch(response);
     }
-  }
+  }, [filterSearch, pathname]);
 
   useEffect(() => {
     function resultsConditions() {

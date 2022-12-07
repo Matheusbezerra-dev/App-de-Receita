@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import DoneRecipes from './components/DoneRecipes';
 import Drinks from './components/Drinks';
 import Meals from './components/Meals';
+import RecipeDetails from './components/RecipeDetails';
 import Profile from './components/Profile';
 import FavoriteRecipes from './components/FavoriteRecipes';
 import GlobalStyled from './style/GlobalStyled';
@@ -21,12 +22,16 @@ export default function App() {
           <Route exact path="/drinks" component={ Drinks } />
           <Route
             exact
-            path="/meals/:id-da-receita"
-            render={ (props) => <Meals { ...props } /> }
+            path="/meals/:id"
+            component={ RecipeDetails }
           />
-          <Route exact path="/drinks/:id-da-receita" />
-          <Route exact path="/meals/:id-da-receita/in-progress" />
-          <Route exact path="/drinks/:id-da-receita/in-progress" />
+          <Route
+            exact
+            path="/drinks/:id"
+            component={ RecipeDetails }
+          />
+          <Route exact path="/meals/:id/in-progress" />
+          <Route exact path="/drinks/:id/in-progress" />
           <Route exact path="/profile" component={ Profile } />
           <Route exact path="/done-recipes" component={ DoneRecipes } />
           <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
