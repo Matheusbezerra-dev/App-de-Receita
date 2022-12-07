@@ -9,6 +9,7 @@ const copy = require('clipboard-copy');
 
 export default function FavoriteRecipes() {
   const [favoritesRecipes, setFavoritesRecipes] = useState([]);
+  const [copyMessage, setCopyMessage] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -42,6 +43,7 @@ export default function FavoriteRecipes() {
 
   function setUrlCopy(id, type) {
     copy(`http://localhost:3000/${type}s/${id}`);
+    setCopyMessage(true);
   }
 
   function removeFavorite(id) {
@@ -64,6 +66,11 @@ export default function FavoriteRecipes() {
   function redirectToDetails(id, type) {
     history.push(`/${type}s/${id}`);
   }
+
+  const MAX_TIME = 1000;
+  setTimeout(() => {
+    setCopyMessage(false);
+  }, MAX_TIME);
 
   return (
     <div>
@@ -89,6 +96,7 @@ export default function FavoriteRecipes() {
       >
         Drinks
       </button>
+      {copyMessage ? <div><p>Link copied!</p></div> : <div /> }
       {favoritesRecipes.map((favRecipe, index) => {
         if (favRecipe.type === 'meal') {
           return (
