@@ -47,7 +47,7 @@ describe('Testa o componente FavoriteRecipes', () => {
   ];
 
   beforeEach(() => {
-    localStorage.setItem('favoriteRecipes', storage);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(storage));
   });
 
   afterEach(() => {
