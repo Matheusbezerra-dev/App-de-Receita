@@ -4,15 +4,15 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 
-beforeEach(() => {
-  localStorage.setItem('user', '{"email":"email@mail.com"}');
-});
-
-afterEach(() => {
-  localStorage.clear();
-});
-
 describe('Testa o componente Profile', () => {
+  beforeEach(() => {
+    localStorage.setItem('user', '{"email":"email@mail.com"}');
+  });
+
+  afterEach(() => {
+    localStorage.clear();
+  });
+
   test('Testa se a pessoa é redirecionada para "/profile"', () => {
     const { history } = renderWithRouter(<App />);
     act(() => { history.push('/profile'); });
