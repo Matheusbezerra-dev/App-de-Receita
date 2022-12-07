@@ -3,11 +3,13 @@ import Header from './Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import './FavoriteRecipes.css';
+import { useHistory } from 'react-router-dom';
 
 const copy = require('clipboard-copy');
 
 export default function FavoriteRecipes() {
   const [favoritesRecipes, setFavoritesRecipes] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const testItem = [
@@ -43,7 +45,6 @@ export default function FavoriteRecipes() {
   }
 
   function removeFavorite(id) {
-    console.log(id);
     const filteredRecipes = favoritesRecipes.filter((favorite) => favorite.id !== id);
     setFavoritesRecipes(filteredRecipes);
     localStorage.setItem('favoriteRecipes', JSON.stringify(filteredRecipes));
@@ -54,9 +55,14 @@ export default function FavoriteRecipes() {
       const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
       setFavoritesRecipes(favorites);
     } else if (category === 'meal' || category === 'drink') {
-      const filtered = favoritesRecipes.filter((favorite) => favorite.type === category);
+      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const filtered = favorites.filter((favorite) => favorite.type === category);
       setFavoritesRecipes(filtered);
     }
+  }
+
+  function redirectToDetails(id, type) {
+    history.push(`/${type}s/${id}`);
   }
 
   return (
@@ -92,8 +98,14 @@ export default function FavoriteRecipes() {
                 src={ favRecipe.image }
                 alt={ favRecipe.name }
                 data-testid={ `${index}-horizontal-image` }
+                onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
               />
-              <p data-testid={ `${index}-horizontal-name` }>{favRecipe.name}</p>
+              <p
+                data-testid={ `${index}-horizontal-name` }
+                onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
+              >
+                {favRecipe.name}
+              </p>
               <p
                 data-testid={ `${index}-horizontal-top-text` }
               >
@@ -123,8 +135,14 @@ export default function FavoriteRecipes() {
               src={ favRecipe.image }
               alt={ favRecipe.name }
               data-testid={ `${index}-horizontal-image` }
+              onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
             />
-            <p data-testid={ `${index}-horizontal-name` }>{favRecipe.name}</p>
+            <p
+              data-testid={ `${index}-horizontal-name` }
+              onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
+            >
+              {favRecipe.name}
+            </p>
             <p
               data-testid={ `${index}-horizontal-top-text` }
             >
