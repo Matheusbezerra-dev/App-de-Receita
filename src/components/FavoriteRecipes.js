@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import './FavoriteRecipes.css';
+
+const copy = require('clipboard-copy');
 
 export default function FavoriteRecipes() {
   const [favoritesRecipes, setFavoritesRecipes] = useState([]);
@@ -35,15 +38,26 @@ export default function FavoriteRecipes() {
     setFavoritesRecipes(favorites);
   }, []);
 
-  // * Todos os data-testids estão presentes:
-  // * O botão de filtro `All` deve ter o atributo `data-testid="filter-by-all-btn"`;
-  // * O botão de filtro `Meals` deve ter o atributo `data-testid="filter-by-meal-btn"`;
-  // * O botão de `Drinks` deve ter o atributo `data-testid="filter-by-drink-btn"`;
-  // * A imagem do card de receita deve ter o atributo `data-testid="${index}-horizontal-image"`;
-  // * O texto da categoria da receita deve ter o atributo `data-testid="${index}-horizontal-top-text"`;
-  // * O texto do nome da receita deve ter o atributo `data-testid="${index}-horizontal-name"`;
-  // * O elemento de compartilhar a receita deve ter o atributo `data-testid="${index}-horizontal-share-btn"`;
-  // * O elemento de favoritar a receita deve ter o atributo `data-testid="${index}-horizontal-favorite-btn"`;
+  function setUrlCopy(id, type) {
+    copy(`http://localhost:3000/${type}s/${id}`);
+  }
+
+  function removeFavorite(id) {
+    console.log(id);
+    const filteredRecipes = favoritesRecipes.filter((favorite) => favorite.id !== id);
+    setFavoritesRecipes(filteredRecipes);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(filteredRecipes));
+  }
+
+  function filterFavorites(category) {
+    if (category === 'all') {
+      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      setFavoritesRecipes(favorites);
+    } else if (category === 'meal' || category === 'drink') {
+      const filtered = favoritesRecipes.filter((favorite) => favorite.type === category);
+      setFavoritesRecipes(filtered);
+    }
+  }
 
   return (
     <div>
@@ -51,18 +65,21 @@ export default function FavoriteRecipes() {
       <button
         type="button"
         data-testid="filter-by-all-btn"
+        onClick={ () => filterFavorites('all') }
       >
         All
       </button>
       <button
         type="button"
         data-testid="filter-by-meal-btn"
+        onClick={ () => filterFavorites('meal') }
       >
         Meals
       </button>
       <button
         type="button"
         data-testid="filter-by-drink-btn"
+        onClick={ () => filterFavorites('drink') }
       >
         Drinks
       </button>
@@ -71,6 +88,7 @@ export default function FavoriteRecipes() {
           return (
             <div key={ favRecipe.id } data-testid={ `${index}-recipe-card` }>
               <img
+                className="recipe-img"
                 src={ favRecipe.image }
                 alt={ favRecipe.name }
                 data-testid={ `${index}-horizontal-image` }
@@ -82,14 +100,18 @@ export default function FavoriteRecipes() {
                 {`${favRecipe.nationality} - ${favRecipe.category}`}
               </p>
               <img
+                className="img"
                 data-testid={ `${index}-horizontal-share-btn` }
                 src={ shareIcon }
                 alt="button"
+                onClick={ () => setUrlCopy(favRecipe.id, favRecipe.type) }
               />
               <img
+                className="img"
                 data-testid={ `${index}-horizontal-favorite-btn` }
                 src={ blackHeartIcon }
                 alt="button"
+                onClick={ () => removeFavorite(favRecipe.id) }
               />
             </div>
           );
@@ -97,6 +119,7 @@ export default function FavoriteRecipes() {
         return (
           <div key={ favRecipe.id } data-testid={ `${index}-recipe-card` }>
             <img
+              className="recipe-img"
               src={ favRecipe.image }
               alt={ favRecipe.name }
               data-testid={ `${index}-horizontal-image` }
@@ -108,14 +131,18 @@ export default function FavoriteRecipes() {
               {favRecipe.alcoholicOrNot}
             </p>
             <img
+              className="img"
               data-testid={ `${index}-horizontal-share-btn` }
               src={ shareIcon }
               alt="button"
+              onClick={ () => setUrlCopy(favRecipe.id, favRecipe.type) }
             />
             <img
+              className="img"
               data-testid={ `${index}-horizontal-favorite-btn` }
               src={ blackHeartIcon }
               alt="button"
+              onClick={ () => removeFavorite(favRecipe.id) }
             />
           </div>
         );
