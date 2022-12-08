@@ -17,12 +17,10 @@ const FIRST_NAME = '0-horizontal-name';
 const SECOND_NAME = '1-horizontal-name';
 const MEAL = 'Spicy Arrabiata Penne';
 const DRINK = 'Aquamarine';
-// const FIRST_IMAGE = '0-horizontal-image';
-// const SECOND_IMAGE = '1-horizontal-image';
-// const FIRST_FAV_BTN = '0-horizontal-favorite-btn';
-// const SECOND_FAV_BTN = '1-horizontal-favorite-btn';
-// const FIRST_SHARE_BTN = '0-horizontal-share-btn';
-// const SECOND_SHARE_BTN = '1-horizontal-share-btn';
+const FIRST_IMAGE = '0-horizontal-image';
+const SECOND_IMAGE = '1-horizontal-image';
+const FIRST_SHARE_BTN = '0-horizontal-share-btn';
+const SECOND_SHARE_BTN = '1-horizontal-share-btn';
 
 describe('Testa o componente Drinks', () => {
   const doneRecipes = [
@@ -120,5 +118,52 @@ describe('Testa o componente Drinks', () => {
 
     const recipeCardTwo = screen.queryByTestId(SECOND_RECIPE);
     expect(recipeCardTwo).toBe(null);
+  });
+  test('Testa se, ao clicar nos nomes das receita, o usuário é redirecionado para a página de detalhes da receita clicada', () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => { history.push(DONE_RECIPES_PATHNAME); });
+    expect(history.location.pathname).toBe(DONE_RECIPES_PATHNAME);
+
+    const mealRecipe = screen.getByTestId(FIRST_NAME);
+    userEvent.click(mealRecipe);
+    expect(history.location.pathname).toBe('/meals/52771');
+
+    act(() => { history.push(DONE_RECIPES_PATHNAME); });
+
+    const drinkRecipe = screen.getByTestId(SECOND_NAME);
+    userEvent.click(drinkRecipe);
+    expect(history.location.pathname).toBe('/drinks/178319');
+  });
+  test('Testa se, ao clicar nas imagens das receita, o usuário é redirecionado para a página de detalhes da receita clicada', () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => { history.push(DONE_RECIPES_PATHNAME); });
+    expect(history.location.pathname).toBe(DONE_RECIPES_PATHNAME);
+
+    const mealRecipe = screen.getByTestId(FIRST_IMAGE);
+    userEvent.click(mealRecipe);
+    expect(history.location.pathname).toBe('/meals/52771');
+
+    act(() => { history.push(DONE_RECIPES_PATHNAME); });
+
+    const drinkRecipe = screen.getByTestId(SECOND_IMAGE);
+    userEvent.click(drinkRecipe);
+    expect(history.location.pathname).toBe('/drinks/178319');
+  });
+  test('Testa se, ao clicar no botão compartilhar, a o link é copiado para o clipboard', () => {
+    navigator.clipboard.writeText = jest.fn();
+
+    const { history } = renderWithRouter(<App />);
+    act(() => { history.push(DONE_RECIPES_PATHNAME); });
+    expect(history.location.pathname).toBe(DONE_RECIPES_PATHNAME);
+
+    const firstShareButton = screen.getByTestId(FIRST_SHARE_BTN);
+    const secondShareButton = screen.getByTestId(SECOND_SHARE_BTN);
+    expect(firstShareButton).toBeInTheDocument();
+    expect(secondShareButton).toBeInTheDocument();
+
+    userEvent.click(firstShareButton);
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('http://localhost:3000/meals/52771');
+    userEvent.click(secondShareButton);
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('http://localhost:3000/drinks/178319');
   });
 });
