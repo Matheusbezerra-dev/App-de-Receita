@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useHistory, useParams } from 'react-router-dom';
 import AppContext from './AppContext';
 import requestMealsAPI from '../services/requestMealsAPI';
 import requestDrinksAPI from '../services/requestDrinksAPI';
@@ -16,6 +16,8 @@ export default function AppProvider({ children }) {
 
   const { pathname } = useLocation();
   const history = useHistory();
+  const { id } = useParams();
+  const titlePage = history.location.pathname.includes('meals') ? 'meals' : 'drinks';
 
   const requestAPI = useCallback(async () => {
     const { filterOption, valueSearch } = filterSearch;
@@ -55,9 +57,6 @@ export default function AppProvider({ children }) {
     }
     resultsConditions();
   }, [resultSearch, history, pathname]);
-
-  const id = history.location.pathname.split('/')[2];
-  const titlePage = history.location.pathname.includes('meals') ? 'meals' : 'drinks';
 
   const favorite = useCallback(() => {
     let favoriteRevenue = {};
@@ -144,6 +143,8 @@ export default function AppProvider({ children }) {
     renderedSearchResults,
     favorite,
     showFavorite,
+    titlePage,
+    id,
   }), [
     email,
     setEmail,
@@ -161,6 +162,8 @@ export default function AppProvider({ children }) {
     showFavorite,
     details,
     setDetails,
+    titlePage,
+    id,
   ]);
 
   return (

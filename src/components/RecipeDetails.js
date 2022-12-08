@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
 import AppContext from '../context/AppContext';
 import { ContainerRecipesDetails, ButtonStar } from '../style/styled';
@@ -16,7 +16,7 @@ export default function RecipeDetails() {
   const [recommendationDrinks, setRecommendationDrinks] = useState([]);
   const [startButton, setStartButton] = useState(true);
   const [shared, setShared] = useState(false);
-  const id = history.location.pathname.split('/')[2];
+  const { id } = useParams();
   const titlePage = history.location.pathname.includes('meals') ? 'meals' : 'drinks';
 
   const fetchAPI = useCallback(async () => {

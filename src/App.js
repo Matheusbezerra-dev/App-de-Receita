@@ -9,6 +9,7 @@ import Meals from './components/Meals';
 import RecipeDetails from './components/RecipeDetails';
 import Profile from './components/Profile';
 import FavoriteRecipes from './components/FavoriteRecipes';
+import RecipeInProgress from './components/RecipeInProgress';
 import GlobalStyled from './style/GlobalStyled';
 
 export default function App() {
@@ -30,8 +31,8 @@ export default function App() {
             path="/drinks/:id"
             component={ RecipeDetails }
           />
-          <Route exact path="/meals/:id/in-progress" />
-          <Route exact path="/drinks/:id/in-progress" />
+          <Route exact path="/meals/:id/in-progress" component={ RecipeInProgress } />
+          <Route exact path="/drinks/:id/in-progress" component={ RecipeInProgress } />
           <Route exact path="/profile" component={ Profile } />
           <Route exact path="/done-recipes" component={ DoneRecipes } />
           <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
