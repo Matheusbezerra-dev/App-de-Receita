@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from './Header';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -35,6 +36,7 @@ export default function DoneRecipes() {
 
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [copyMessage, setCopyMessage] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -55,6 +57,10 @@ export default function DoneRecipes() {
   function setUrlCopy(id, type) {
     copy(`http://localhost:3000/${type}s/${id}`);
     setCopyMessage(true);
+  }
+
+  function redirectToDetails(id, type) {
+    history.push(`/${type}s/${id}`);
   }
 
   const MAX_TIME = 1000;
