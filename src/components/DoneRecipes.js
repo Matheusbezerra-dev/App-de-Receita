@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import shareIcon from '../images/shareIcon.svg';
 
+const copy = require('clipboard-copy');
+
 export default function DoneRecipes() {
   useEffect(() => {
     const doneRecipes = [
@@ -32,11 +34,33 @@ export default function DoneRecipes() {
   }, []);
 
   const [doneRecipes, setDoneRecipes] = useState([]);
+  const [copyMessage, setCopyMessage] = useState(false);
 
   useEffect(() => {
     const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
     setDoneRecipes(recipes);
   }, []);
+
+  function filterDoneRecipes(category) {
+    if (category === 'all') {
+      const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
+      setDoneRecipes(recipes);
+    } else if (category === 'meal' || category === 'drink') {
+      const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
+      const filtered = recipes.filter((recipe) => recipe.type === category);
+      setDoneRecipes(filtered);
+    }
+  }
+
+  function setUrlCopy(id, type) {
+    copy(`http://localhost:3000/${type}s/${id}`);
+    setCopyMessage(true);
+  }
+
+  const MAX_TIME = 1000;
+  setTimeout(() => {
+    setCopyMessage(false);
+  }, MAX_TIME);
 
   return (
     <div>
@@ -44,24 +68,25 @@ export default function DoneRecipes() {
       <button
         type="button"
         data-testid="filter-by-all-btn"
-        // onClick={ () => filterFavorites('all') }
+        onClick={ () => filterDoneRecipes('all') }
       >
         All
       </button>
       <button
         type="button"
         data-testid="filter-by-meal-btn"
-        // onClick={ () => filterFavorites('meal') }
+        onClick={ () => filterDoneRecipes('meal') }
       >
         Meals
       </button>
       <button
         type="button"
         data-testid="filter-by-drink-btn"
-        // onClick={ () => filterFavorites('drink') }
+        onClick={ () => filterDoneRecipes('drink') }
       >
         Drinks
       </button>
+      {copyMessage ? <div><p>Link copied!</p></div> : <div /> }
       {doneRecipes.map((doneRecipe, index) => {
         if (doneRecipe.type === 'meal') {
           return (
