@@ -51,3 +51,9 @@ export const ButtonStar = styled.button`
   position: fixed;
   bottom: 0px;
 `;
+
+export const LabelRecipeInProgress = styled.div`
+  label {
+    text-decoration: line-through solid rgb(0, 0, 0);
+  }
+`;
