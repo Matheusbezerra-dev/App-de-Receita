@@ -1,5 +1,5 @@
 import Footer from './Footer';
-import BodyRecipes from './BodyRecipes';
+import BodyRecipes from '../pages/BodyRecipes';
 import Header from './Header';
 
 export default function Meals() {

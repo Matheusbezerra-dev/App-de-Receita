@@ -1,6 +1,6 @@
 import Header from './Header';
 import Footer from './Footer';
-import BodyRecipes from './BodyRecipes';
+import BodyRecipes from '../pages/BodyRecipes';
 
 export default function Drinks() {
   return (

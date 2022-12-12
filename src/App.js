@@ -3,13 +3,13 @@ import { Switch, Route } from 'react-router-dom';
 import AppProvider from './context/AppProvider';
 import Login from './pages/Login';
 // import Recipes from './pages/Recipes';
-import DoneRecipes from './components/DoneRecipes';
+import DoneRecipes from './pages/DoneRecipes';
 import Drinks from './components/Drinks';
 import Meals from './components/Meals';
-import RecipeDetails from './components/RecipeDetails';
-import Profile from './components/Profile';
-import FavoriteRecipes from './components/FavoriteRecipes';
-import RecipeInProgress from './components/RecipeInProgress';
+import RecipeDetails from './pages/RecipeDetails';
+import Profile from './pages/Profile';
+import FavoriteRecipes from './pages/FavoriteRecipes';
+import RecipeInProgress from './pages/RecipeInProgress';
 import GlobalStyled from './style/GlobalStyled';
 
 export default function App() {

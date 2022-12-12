@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Header from './Header';
+import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import './FavoriteRecipes.css';
+import '../components/FavoriteRecipes.css';
 
 const copy = require('clipboard-copy');
 

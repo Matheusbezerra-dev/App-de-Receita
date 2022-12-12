@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
-import Recipes from './Recipes';
+import Recipes from '../components/Recipes';
 import { ContainerRevenues } from '../style/styled';
 
 export default function BobyRecipes({ title }) {
