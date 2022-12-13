@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 
+// Login
+
+export const containerLogin = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
 export const FooterContainer = styled.footer`
   bottom: 0;
   width: 360px; 
@@ -29,14 +37,14 @@ export const ContainerRevenues = styled.div`
   flex-direction: column;
   `;
 
-export const RecipesLinks = styled.div`
+/* export const RecipesLinks = styled.div`
   width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 20px;
-`;
+`; */
 
 export const ContainerRecipesDetails = styled.div`
   display: flex;

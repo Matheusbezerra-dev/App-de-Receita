@@ -10,12 +10,10 @@ import RecipeDetails from './pages/RecipeDetails';
 import Profile from './pages/Profile';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeInProgress from './pages/RecipeInProgress';
-import GlobalStyled from './style/GlobalStyled';
 
 export default function App() {
   return (
     <>
-      <GlobalStyled />
       <AppProvider>
         <Switch>
           <Route exact path="/" component={ Login } />

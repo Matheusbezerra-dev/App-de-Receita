@@ -1,23 +1,27 @@
 import { createGlobalStyle } from 'styled-components';
+import { px2vw } from '../utils/px2vw';
+
+const NUMBER_MAGIC = 13;
+const NUMBER_MAGIC1 = 18;
+const NUMBER_MAGIC2 = 16;
 
 const GlobalStyled = createGlobalStyle`
   *{
     margin: 0;
     padding: 0;
-    outline: 0;
-    box-sizing: border-box
+    box-sizing: border-box;
   }
 
-  html, body, :root {
-    max-width: 320px;
-    max-height: 640px;
-    min-height: 100%;
-    min-width: 100%;
-  }
+  :root {
+    font-size: ${px2vw(NUMBER_MAGIC, 320)};
 
-  body{ 
-    display: flex;
-    justify-content: center;
+    @media (min-width: 768px) {
+      font-size: ${px2vw(NUMBER_MAGIC1, 768)};
+    }
+
+    @media (min-width: 1024px) {
+      font-size: ${px2vw(NUMBER_MAGIC2, 1024)};
+    }
   }
 `;
 

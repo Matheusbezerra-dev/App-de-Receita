@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { RecipesLinks } from '../style/styled';
+/* import { RecipesLinks } from '../style/styled'; */
+
+import {
+  RecipesLinks,
+  ImageCard,
+  DivCardH4,
+} from '../pages/CardRecipeStyle';
 
 export default function Recipes(props) {
   const { cardInfo, type, name, index, idRoute, title } = props;
@@ -9,12 +15,12 @@ export default function Recipes(props) {
 
     <Link to={ `/${title}/${cardInfo[idRoute]}` }>
       <RecipesLinks data-testid={ `${index}-recipe-card` }>
-        <img
+        <ImageCard
           src={ cardInfo[type] }
           alt={ `${cardInfo[name]}` }
           data-testid={ `${index}-card-img` }
         />
-        <h4 data-testid={ `${index}-card-name` }>{cardInfo[name]}</h4>
+        <DivCardH4 data-testid={ `${index}-card-name` }>{cardInfo[name]}</DivCardH4>
       </RecipesLinks>
     </Link>
   );

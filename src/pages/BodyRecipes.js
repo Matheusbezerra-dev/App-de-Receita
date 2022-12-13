@@ -1,8 +1,40 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Recipes from '../components/Recipes';
 import { ContainerRevenues } from '../style/styled';
+import {
+  ButtonCategory,
+  ContainerButtonCategory,
+} from './BodyRecipesStyle';
+import All from '../images/All.png';
+import Beef from '../images/Beef.png';
+import Breakfast from '../images/Breakfast.png';
+import Chicken from '../images/Chicken.png';
+import Dessert from '../images/Dessert.png';
+import Goat from '../images/Goat.png';
+import OrdinaryDrink from '../images/Drink.png';
+import Cocoa from '../images/Cocoa.png';
+import Cocktail from '../images/Cocktail.png';
+import Shake from '../images/Shake.png';
+import Other from '../images/Other.png';
+import AllDrinks from '../images/AllDrinks.png';
+
+const logoCategoryMeals = [
+  { name: 'Beef', image: Beef },
+  { name: 'Breakfast', image: Breakfast },
+  { name: 'Chicken', image: Chicken },
+  { name: 'Dessert', image: Dessert },
+  { name: 'Goat', image: Goat },
+];
+
+const logoCategoryDrinks = [
+  { name: 'Ordinary Drink', image: OrdinaryDrink },
+  { name: 'Cocktail', image: Cocktail },
+  { name: 'Shake', image: Shake },
+  { name: 'Other / Unknown', image: Other },
+  { name: 'Cocoa', image: Cocoa },
+];
 
 export default function BobyRecipes({ title }) {
   const history = useHistory();
@@ -16,6 +48,8 @@ export default function BobyRecipes({ title }) {
   const [category, setCategory] = useState([]);
   const [defaultRevenues, setDefaultRevenues] = useState([]);
   const [filterCategory, setFilterCategory] = useState('');
+
+  const { pathname } = useLocation();
 
   const maxRender = 12;
   const maxCategory = 5;
@@ -106,25 +140,39 @@ export default function BobyRecipes({ title }) {
 
   return (
     <ContainerRevenues>
-      <section>
+      <ContainerButtonCategory>
         {category && category.map(({ strCategory }) => (
-          <button
+          <ButtonCategory
             key={ strCategory }
             type="button"
             data-testid={ `${strCategory}-category-filter` }
             onClick={ () => handleCategory(strCategory) }
           >
-            {strCategory}
-          </button>
+            {pathname === '/meals' ? <img
+              src={ logoCategoryMeals.filter((logo) => logo.name === strCategory)
+                .map((logo) => logo.image) }
+              alt={ strCategory }
+            /> : <img
+              src={ logoCategoryDrinks.filter((logo) => logo.name === strCategory)
+                .map((logo) => logo.image) }
+              alt={ strCategory }
+            /> }
+          </ButtonCategory>
         ))}
-        <button
+        <ButtonCategory
           type="button"
           data-testid="All-category-filter"
           onClick={ () => handleCategoryAll() }
         >
-          All
-        </button>
-      </section>
+          {pathname === '/meals' ? <img
+            src={ All }
+            alt={ All }
+          /> : <img
+            src={ AllDrinks }
+            alt={ AllDrinks }
+          />}
+        </ButtonCategory>
+      </ContainerButtonCategory>
 
       {!renderedSearchResults && revenues && (
         revenues.map((revenue, index) => (

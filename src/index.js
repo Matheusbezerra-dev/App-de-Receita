@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import GlobalStyled from './style/GlobalStyled';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM
   .createRoot(document.getElementById('root'))
   .render(
     <BrowserRouter>
+      <GlobalStyled />
       <App />
     </BrowserRouter>,
   );
