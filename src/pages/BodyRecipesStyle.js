@@ -8,10 +8,13 @@ const MIN_HEIGHT = 69;
 
 export const ContainerButtonCategory = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
   width: ${px2vw(MIN_WIDTH, MAX_WIDTH)};
   height: ${px1vw(MIN_HEIGHT, MAX_HEIGHT)};
   gap: 10px;
+  margin-bottom: 20px;
 `;
 
 export const ButtonCategory = styled.button`
@@ -19,6 +22,19 @@ export const ButtonCategory = styled.button`
   background-color: white;
 `;
 
-export const RecipesDetailsI = styled.div`
+export const ContainerRe = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: ${px2vw(MIN_WIDTH, MAX_WIDTH)};
+`;
 
+export const ContainerRevenues = styled.div`
+  display: flex;
+  justify-content: center;
+  width: ${px2vw(MIN_WIDTH, MAX_WIDTH)};
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 65px;
 `;
