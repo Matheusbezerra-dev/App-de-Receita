@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Recipes from '../components/Recipes';
-// import { ContainerRevenues } from '../style/styled';
 import {
   ButtonCategory,
   ContainerButtonCategory,

@@ -20,12 +20,12 @@ import styled from 'styled-components';
 // `;
 
 
-export const ContainerRevenues = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  `;
+// export const ContainerRevenues = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: column;
+//   `;
 
 /* export const RecipesLinks = styled.div`
   width: 300px;
@@ -36,19 +36,19 @@ export const ContainerRevenues = styled.div`
   margin-bottom: 20px;
 `; */
 
-export const ContainerRecipesDetails = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  width: 360px;
-  height: auto;
-`;
+// export const ContainerRecipesDetails = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   flex-direction: column;
+//   align-items: center;
+//   width: 360px;
+//   height: auto;
+// `;
 
-export const ButtonStar = styled.button`
-  position: fixed;
-  bottom: 0px;
-`;
+// export const ButtonStar = styled.button`
+//   position: fixed;
+//   bottom: 0px;
+// `;
 
 export const LabelRecipeInProgress = styled.div`
   label {
