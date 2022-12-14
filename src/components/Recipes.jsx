@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-/* import { RecipesLinks } from '../style/styled'; */
 
 import {
-  RecipesLinks,
-  ImageCard,
-  DivCardH4,
-} from '../pages/CardRecipeStyle';
+  ImgCard,
+  ContainerRecipes,
+  LinkH4,
+} from './RecipesStyle';
 
 export default function Recipes(props) {
   const { cardInfo, type, name, index, idRoute, title } = props;
@@ -14,14 +13,14 @@ export default function Recipes(props) {
   return (
 
     <Link to={ `/${title}/${cardInfo[idRoute]}` }>
-      <RecipesLinks data-testid={ `${index}-recipe-card` }>
-        <ImageCard
+      <ContainerRecipes data-testid={ `${index}-recipe-card` }>
+        <ImgCard
           src={ cardInfo[type] }
           alt={ `${cardInfo[name]}` }
           data-testid={ `${index}-card-img` }
         />
-        <DivCardH4 data-testid={ `${index}-card-name` }>{cardInfo[name]}</DivCardH4>
-      </RecipesLinks>
+        <LinkH4 data-testid={ `${index}-card-name` }>{cardInfo[name]}</LinkH4>
+      </ContainerRecipes>
     </Link>
   );
 }

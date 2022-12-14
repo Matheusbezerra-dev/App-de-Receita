@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import AppProvider from './context/AppProvider';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import GlobalStyled from './style/GlobalStyled';
@@ -10,8 +11,10 @@ ReactDOM
   .createRoot(document.getElementById('root'))
   .render(
     <BrowserRouter>
-      <GlobalStyled />
-      <App />
+      <AppProvider>
+        <GlobalStyled />
+        <App />
+      </AppProvider>
     </BrowserRouter>,
   );
 

@@ -2,10 +2,11 @@ import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Recipes from '../components/Recipes';
-import { ContainerRevenues } from '../style/styled';
 import {
   ButtonCategory,
   ContainerButtonCategory,
+  ContainerRevenues,
+  ContainerRe,
 } from './BodyRecipesStyle';
 import All from '../images/All.png';
 import Beef from '../images/Beef.png';
@@ -29,11 +30,11 @@ const logoCategoryMeals = [
 ];
 
 const logoCategoryDrinks = [
-  { name: 'Ordinary Drink', image: OrdinaryDrink },
   { name: 'Cocktail', image: Cocktail },
-  { name: 'Shake', image: Shake },
-  { name: 'Other / Unknown', image: Other },
   { name: 'Cocoa', image: Cocoa },
+  { name: 'Ordinary Drink', image: OrdinaryDrink },
+  { name: 'Other / Unknown', image: Other },
+  { name: 'Shake', image: Shake },
 ];
 
 export default function BobyRecipes({ title }) {
@@ -139,26 +140,8 @@ export default function BobyRecipes({ title }) {
   };
 
   return (
-    <ContainerRevenues>
+    <ContainerRe>
       <ContainerButtonCategory>
-        {category && category.map(({ strCategory }) => (
-          <ButtonCategory
-            key={ strCategory }
-            type="button"
-            data-testid={ `${strCategory}-category-filter` }
-            onClick={ () => handleCategory(strCategory) }
-          >
-            {pathname === '/meals' ? <img
-              src={ logoCategoryMeals.filter((logo) => logo.name === strCategory)
-                .map((logo) => logo.image) }
-              alt={ strCategory }
-            /> : <img
-              src={ logoCategoryDrinks.filter((logo) => logo.name === strCategory)
-                .map((logo) => logo.image) }
-              alt={ strCategory }
-            /> }
-          </ButtonCategory>
-        ))}
         <ButtonCategory
           type="button"
           data-testid="All-category-filter"
@@ -172,22 +155,43 @@ export default function BobyRecipes({ title }) {
             alt={ AllDrinks }
           />}
         </ButtonCategory>
+        {category && category.map(({ strCategory }) => (
+          <ButtonCategory
+            key={ strCategory }
+            type="button"
+            data-testid={ `${strCategory}-category-filter` }
+            onClick={ () => handleCategory(strCategory) }
+          >
+            {pathname === '/meals' ? <img
+              src={ logoCategoryMeals.sort((a, b) => b.name - a.name)
+                .filter((logo) => logo.name === strCategory)
+                .map((logo) => logo.image) }
+              alt={ strCategory }
+            /> : <img
+              src={ logoCategoryDrinks.sort((a, b) => b.name - a.name)
+                .filter((logo) => logo.name === strCategory)
+                .map((logo) => logo.image) }
+              alt={ strCategory }
+            /> }
+          </ButtonCategory>
+        ))}
       </ContainerButtonCategory>
-
-      {!renderedSearchResults && revenues && (
-        revenues.map((revenue, index) => (
-          <Recipes
-            title={ title.toLowerCase() }
-            idRoute={ idRoute }
-            cardInfo={ revenue }
-            type={ `str${pageName}Thumb` }
-            name={ `str${pageName}` }
-            index={ index }
-            key={ index }
-          />
-        ))
-      )}
-    </ContainerRevenues>
+      <ContainerRevenues>
+        {!renderedSearchResults && revenues && (
+          revenues.map((revenue, index) => (
+            <Recipes
+              title={ title.toLowerCase() }
+              idRoute={ idRoute }
+              cardInfo={ revenue }
+              type={ `str${pageName}Thumb` }
+              name={ `str${pageName}` }
+              index={ index }
+              key={ index }
+            />
+          ))
+        )}
+      </ContainerRevenues>
+    </ContainerRe>
   );
 }
 

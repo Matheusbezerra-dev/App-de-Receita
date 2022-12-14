@@ -1,8 +1,15 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { useEffect, useState, useCallback, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
 import AppContext from '../context/AppContext';
-import { ContainerRecipesDetails, ButtonStar } from '../style/styled';
+import {
+  ContainerRecipesDetails,
+  ButtonRecipesDetails,
+  ImgRecipesDetails,
+  DivOpacidade,
+  ContainerRecipes,
+} from './RecipeDetailsDetails';
 import blackHeart from '../images/blackHeartIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 
@@ -126,16 +133,48 @@ export default function RecipeDetails() {
 
   return (
     <ContainerRecipesDetails>
-      <h3 data-testid="recipe-title">
-        { details.strMeal || details.strDrink }
-      </h3>
-
-      <img
-        src={ details.strMealThumb || details.strDrinkThumb }
-        alt="recipeImg"
-        data-testid="recipe-photo"
-        width="200"
-      />
+      <ContainerRecipes>
+        <ImgRecipesDetails
+          src={ details.strMealThumb || details.strDrinkThumb }
+          alt="recipeImg"
+          data-testid="recipe-photo"
+          width="200"
+        />
+        <DivOpacidade>  </DivOpacidade>
+        <ContainerRecipes>
+          <div>
+            <div>
+              <h4 data-testid="recipe-category">
+                { details.strAlcoholic || details.strCategory }
+              </h4>
+            </div>
+            <div>
+              <button
+                type="button"
+                data-testid="share-btn"
+                onClick={ handleClickShared }
+              >
+                Share
+              </button>
+              {shared && <span>Link copied!</span>}
+              {showFavorite === false ? (
+                <button type="button" onClick={ favorite }>
+                  <img src={ whiteHeart } alt="heartWhite" data-testid="favorite-btn" />
+                </button>
+              ) : (
+                <button type="button" onClick={ favorite }>
+                  <img src={ blackHeart } alt="heartBlack" data-testid="favorite-btn" />
+                </button>
+              )}
+            </div>
+          </div>
+          <div>
+            <h3 data-testid="recipe-title">
+              { `${details.strMeal}`.toUpperCase() || `${details.strDrink}`.toUpperCase }
+            </h3>
+          </div>
+        </ContainerRecipes>
+      </ContainerRecipes>
 
       <div>
         <h2>Ingredients</h2>
@@ -151,11 +190,7 @@ export default function RecipeDetails() {
           ))}
         </ul>
       </div>
-
-      <h4 data-testid="recipe-category">
-        { details.strAlcoholic || details.strCategory }
-      </h4>
-
+      <h3>Instructions</h3>
       <p data-testid="instructions">
         { details.strInstructions }
       </p>
@@ -167,23 +202,6 @@ export default function RecipeDetails() {
         height="280"
         src={ details.strYoutube || details.strVideo }
       />
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ handleClickShared }
-      >
-        Share
-      </button>
-      {shared && <span>Link copied!</span>}
-      {showFavorite === false ? (
-        <button type="button" onClick={ favorite }>
-          <img src={ whiteHeart } alt="heartWhite" data-testid="favorite-btn" />
-        </button>
-      ) : (
-        <button type="button" onClick={ favorite }>
-          <img src={ blackHeart } alt="heartBlack" data-testid="favorite-btn" />
-        </button>
-      )}
       {titlePage === 'meals'
         ? (
           <Carousel fade>
@@ -223,15 +241,14 @@ export default function RecipeDetails() {
             ))}
           </Carousel>
         )}
-      <ButtonStar
+      <ButtonRecipesDetails
         type="button"
         data-testid="start-recipe-btn"
         onClick={ handleClick }
       >
         {startButton ? ('Start Recipe') : ('Continue Recipe')}
-      </ButtonStar>
+      </ButtonRecipesDetails>
     </ContainerRecipesDetails>
   );
 }
-
 RecipeDetails.propTypes = {}.isRequired;
