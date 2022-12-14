@@ -2,13 +2,18 @@ import styled from 'styled-components';
 import { px2vw, px1vw } from '../utils/px2vw';
 
 export const ContainerButtonsTop = styled.div`
-  width: 200px;
-  height: 50px;
+  width: 300px;
+  height: 80px;
   margin: 20px;
   display: flex;
   justify-content: space-around;
-  aling-items: center;
-  border: 1px solid black;
+  align-items: center;
+  // border: 1px solid black;
+`;
+
+export const AllImage = styled.button`
+  border: none;
+  background-color: white;
 `;
 
 export const ContainerFavorite = styled.div`
@@ -19,15 +24,25 @@ export const ContainerFavorite = styled.div`
 `;
 
 export const ImgFavorite = styled.img`
-  width: ${px2vw(158, 360)};
+  width: ${px2vw(158, 360)}; 
+  height: ${px1vw(230, 640)};
+  border-radius: 5px 0px 0px 5px;
+`;
+
+export const ButtonImgFavorite = styled.button`
+  border: none;
+  background: none;
   height: ${px1vw(230, 640)};
 `;
 
 export const DivFavoriteCard = styled.div`
   display: flex;  
+  justify-content: space-around;
   width: ${px2vw(318, 360)};
-  height: 135px;
+  height: ${px1vw(230, 640)};
   border-radius: 5px;
+  margin-top: 20px;
+  border: 1px solid gray;
 `;
 
 export const AllButtonsBySideRecipeImg = styled.div`
@@ -36,16 +51,16 @@ export const AllButtonsBySideRecipeImg = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  aling-items: center;
-  border: 2px solid red;
+  align-items: center;
+  // border: 2px solid red;
 `;
 
 export const NameCategoryFavorite = styled.div`
   display: flex;
   justify-content: center;
-  aling-items: center;
+  align-items: center;
   flex-direction: column;
-  border: 3px solid green;
+  // border: 3px solid green;
 `;
 
 export const ButtonNameFavorite = styled.button`
@@ -53,39 +68,45 @@ export const ButtonNameFavorite = styled.button`
   height: 15px;
   background-color: white;
   display: flex;
-  justify-content: center;
-  aling-items: center;
-  margin-left: 18%;
+  margin-left: 10%;
   border: none;
 `;
 
 export const NameFavorite = styled.p`
-  // width: 86px;
-  // height: 12px;
-  // border: 1px solid red;
+  font-weight: bold;
+  font-size: 13px;
+  font-family: Epilogue;
 `;
 
 export const CategoryRecipeCard = styled.p`
   display: flex;
-  justify-content: center;
-  // margin: 5px, 8px; 
+  font-size: 10px;
+  font-family: Epilogue;
+  margin-left: 10%; 
 `;
 
 export const ButtonShareAndFavorite = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  aling-items: center;
+  // justify-content: space-around;
+  // aling-items: center;
   margin-top: 18px;
-  border: 2px solid purple;
+  // border: 2px solid purple;
 `;
 
 export const ButtonShare = styled.button`
   background-color: white;
   border: none;
-  color: #FCC436;
+  margin-left: 10%;
+  // color: #FCC436;
 `;
 
-export const ImageShare = styled.img`
-  // background-color: #FCC436;
+export const ButtonFavorite = styled.button`
+  border: none;
+  background-color: white;
+  margin-left: 20%;
+`;
+
+export const ImgFavoriteBySideShare = styled.img`
+  background-color: white;
 `;

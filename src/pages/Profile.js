@@ -1,8 +1,21 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import FavoriteProfile from '../images/FavoriteRecipes.png';
+import DoneProfile from '../images/DoneRecipes.png';
+import Logout from '../images/Logout.png';
+import {
+  ButtonProfile,
+  AllItemsProfile,
+  ItemsDoneFavLogout,
+  ButtonDone,
+  ButtonFavorite,
+  ButtonLogout,
+  Email,
+  EmailText,
+} from './ProfileStyle';
 
 export default function Profile() {
   const storage = localStorage.getItem('user');
@@ -18,41 +31,43 @@ export default function Profile() {
     history.push('/');
   };
   return (
-    <div>
+    <AllItemsProfile>
       <Header titlePage="Profile" buttonSearch={ false } />
-      <div>
-        <p data-testid="profile-email">
-          {storage === null ? 'Não efetuou login' : JSON.parse(storage).email}
-        </p>
-        <p>
-          <Button
+      <ItemsDoneFavLogout>
+        <Email>
+          <EmailText data-testid="profile-email">
+            {storage === null ? 'Não efetuou login' : JSON.parse(storage).email}
+          </EmailText>
+        </Email>
+        <ButtonDone>
+          <ButtonProfile
             type="button"
             data-testid="profile-done-btn"
             onClick={ handleDoneBtn }
           >
-            Done Recipes
-          </Button>
-        </p>
-        <p>
-          <Button
+            <img src={ DoneProfile } alt="done logo" />
+          </ButtonProfile>
+        </ButtonDone>
+        <ButtonFavorite>
+          <ButtonProfile
             type="button"
             data-testid="profile-favorite-btn"
             onClick={ handleFavoriteBtn }
           >
-            Favorite Recipes
-          </Button>
-        </p>
-        <p>
-          <Button
+            <img src={ FavoriteProfile } alt="favorite logo" />
+          </ButtonProfile>
+        </ButtonFavorite>
+        <ButtonLogout>
+          <ButtonProfile
             type="button"
             data-testid="profile-logout-btn"
             onClick={ handleLogoutBtn }
           >
-            Logout
-          </Button>
-        </p>
-      </div>
+            <img src={ Logout } alt="logout logo" />
+          </ButtonProfile>
+        </ButtonLogout>
+      </ItemsDoneFavLogout>
       <Footer />
-    </div>
+    </AllItemsProfile>
   );
 }

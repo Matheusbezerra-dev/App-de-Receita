@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import shareIcon from '../images/shareIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/sharedIcon.png';
+import blackHeartIcon from '../images/FavoriteHead.png';
 /* import '../components/FavoriteRecipes.css'; */
 
 import {
   ContainerButtonsTop,
-  ButtonAll,
-  ButtonMeals,
-  ButtonDrinks,
+  AllImage,
   ImgFavorite,
+  ButtonImgFavorite,
   DivFavoriteCard,
   ContainerFavorite,
   AllButtonsBySideRecipeImg,
@@ -21,8 +20,13 @@ import {
   NameFavorite,
   ButtonShareAndFavorite,
   ButtonShare,
-  ImageShare,
+  ButtonFavorite,
+  ImgFavoriteBySideShare,
 } from './FavoriteRecipesStyle';
+
+import AllFavorite from '../images/AllFavorite.png';
+import FoodsFavorite from '../images/FoodsFavorite.png';
+import DrinksFavorite from '../images/DrinksFavorite.png';
 
 const copy = require('clipboard-copy');
 
@@ -72,27 +76,27 @@ export default function FavoriteRecipes() {
       <ContainerFavorite>
         <Header titlePage="Favorite Recipes" buttonSearch={ false } />
         <ContainerButtonsTop>
-          <ButtonAll
+          <AllImage
             type="button"
             data-testid="filter-by-all-btn"
             onClick={ () => filterFavorites('all') }
           >
-            All
-          </ButtonAll>
-          <ButtonMeals
+            <img src={ AllFavorite } alt="favorite logo" />
+          </AllImage>
+          <AllImage
             type="button"
             data-testid="filter-by-meal-btn"
             onClick={ () => filterFavorites('meal') }
           >
-            Meals
-          </ButtonMeals>
-          <ButtonDrinks
+            <img src={ FoodsFavorite } alt="meals logo" />
+          </AllImage>
+          <AllImage
             type="button"
             data-testid="filter-by-drink-btn"
             onClick={ () => filterFavorites('drink') }
           >
-            Drinks
-          </ButtonDrinks>
+            <img src={ DrinksFavorite } alt="drink logo" />
+          </AllImage>
         </ContainerButtonsTop>
         {copyMessage ? <div><p>Link copied!</p></div> : <div /> }
         {favoritesRecipes.map((favRecipe, index) => {
@@ -102,19 +106,19 @@ export default function FavoriteRecipes() {
                 key={ favRecipe.id }
                 data-testid={ `${index}-recipe-card` }
               >
-                <div>
-                  <button
-                    type="button"
-                    onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
-                  >
-                    <ImgFavorite
-                      // className="recipe-img"
-                      src={ favRecipe.image }
-                      alt={ favRecipe.name }
-                      data-testid={ `${index}-horizontal-image` }
-                    />
-                  </button>
-                </div>
+                {/* <div> */}
+                <ButtonImgFavorite
+                  type="button"
+                  onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
+                >
+                  <ImgFavorite
+                    // className="recipe-img"
+                    src={ favRecipe.image }
+                    alt={ favRecipe.name }
+                    data-testid={ `${index}-horizontal-image` }
+                  />
+                </ButtonImgFavorite>
+                {/* </div> */}
                 <AllButtonsBySideRecipeImg>
                   <NameCategoryFavorite>
                     <ButtonNameFavorite
@@ -138,24 +142,24 @@ export default function FavoriteRecipes() {
                       type="button"
                       onClick={ () => setUrlCopy(favRecipe.id, favRecipe.type) }
                     >
-                      <ImageShare
+                      <img
                         className="img"
                         data-testid={ `${index}-horizontal-share-btn` }
                         src={ shareIcon }
                         alt="button"
                       />
                     </ButtonShare>
-                    <button
+                    <ButtonFavorite
                       type="button"
                       onClick={ () => removeFavorite(favRecipe.id) }
                     >
-                      <img
+                      <ImgFavoriteBySideShare
                         className="img"
                         data-testid={ `${index}-horizontal-favorite-btn` }
                         src={ blackHeartIcon }
                         alt="button"
                       />
-                    </button>
+                    </ButtonFavorite>
                   </ButtonShareAndFavorite>
                 </AllButtonsBySideRecipeImg>
               </DivFavoriteCard>

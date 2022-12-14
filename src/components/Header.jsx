@@ -8,6 +8,7 @@ import logoRecipes from '../images/logoRecipes.png';
 import SearchBar from './SearchBar';
 import LogoDrinks from '../images/icone-bebida.png';
 import LogoMeals from '../images/icone-prato.png';
+import LogoFavorite from '../images/FavoriteHead.png';
 import {
   ContainerHeader,
   ContainerLogos,
@@ -31,8 +32,12 @@ export default function Header({ titlePage, buttonSearch }) {
   const mealsAndDrinks = useCallback(() => {
     if (titlePage === 'Meals') {
       setImg(<img src={ LogoMeals } alt="logo Meals" />);
-    } else {
+    } else if (titlePage === 'Drinks') {
       setImg(<img src={ LogoDrinks } alt="logo Drinks" />);
+    } else if (titlePage === 'Favorite Recipes') {
+      setImg(<img src={ LogoFavorite } alt="logo Favorite" />);
+    } else if (titlePage === 'Profile') {
+      setImg(<img src={ LogoFavorite } alt="logo Favorite" />);
     }
   }, [titlePage]);
 
