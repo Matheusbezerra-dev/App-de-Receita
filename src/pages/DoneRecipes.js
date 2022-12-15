@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
-import shareIcon from '../images/shareIcon.svg';
+import shareIcon from '../images/sharedIcon.png';
+import AllFavorite from '../images/AllFavorite.png';
+import FoodsFavorite from '../images/FoodsFavorite.png';
+import DrinksFavorite from '../images/DrinksFavorite.png';
 
 const copy = require('clipboard-copy');
 
@@ -48,21 +51,21 @@ export default function DoneRecipes() {
         data-testid="filter-by-all-btn"
         onClick={ () => filterDoneRecipes('all') }
       >
-        All
+        <img src={ AllFavorite } alt="favorite logo" />
       </button>
       <button
         type="button"
         data-testid="filter-by-meal-btn"
         onClick={ () => filterDoneRecipes('meal') }
       >
-        Meals
+        <img src={ FoodsFavorite } alt="foods logo" />
       </button>
       <button
         type="button"
         data-testid="filter-by-drink-btn"
         onClick={ () => filterDoneRecipes('drink') }
       >
-        Drinks
+        <img src={ DrinksFavorite } alt="drinks logo" />
       </button>
       {copyMessage ? <div><p>Link copied!</p></div> : <div /> }
       {doneRecipes.map((doneRecipe, index) => {

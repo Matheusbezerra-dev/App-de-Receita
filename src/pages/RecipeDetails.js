@@ -1,16 +1,29 @@
+/* eslint-disable max-lines */
 /* eslint-disable react/jsx-max-depth */
 import React, { useEffect, useState, useCallback, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Carousel } from 'react-bootstrap';
 import AppContext from '../context/AppContext';
+import Shared from '../images/sharedIcon.png';
 import {
   ContainerRecipesDetails,
   ButtonRecipesDetails,
   ImgRecipesDetails,
   DivOpacidade,
   ContainerRecipes,
+  ContainerCategoryRecipes,
+  ContainerButtonShared,
+  ContainerIngredients,
+  ContainerUl,
+  TitleH2,
+  ContainerP,
+  IframeContainer,
+  ContainerCarousel,
+  ButtonShared,
+  TextSpan,
+  Titleh3P,
 } from './RecipeDetailsDetails';
-import blackHeart from '../images/blackHeartIcon.svg';
+import blackHeart from '../images/FavoriteHead.png';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 
 const copy = require('clipboard-copy');
@@ -142,43 +155,45 @@ export default function RecipeDetails() {
         />
         <DivOpacidade>  </DivOpacidade>
         <ContainerRecipes>
-          <div>
+          <ContainerCategoryRecipes>
             <div>
               <h4 data-testid="recipe-category">
                 { details.strAlcoholic || details.strCategory }
               </h4>
             </div>
-            <div>
-              <button
+            <ContainerButtonShared>
+              <ButtonShared
                 type="button"
                 data-testid="share-btn"
                 onClick={ handleClickShared }
               >
-                Share
-              </button>
-              {shared && <span>Link copied!</span>}
+                <img
+                  src={ Shared }
+                  alt="logo shared"
+                />
+              </ButtonShared>
+              {shared && <TextSpan>Link copied!</TextSpan>}
               {showFavorite === false ? (
-                <button type="button" onClick={ favorite }>
+                <ButtonShared type="button" onClick={ favorite }>
                   <img src={ whiteHeart } alt="heartWhite" data-testid="favorite-btn" />
-                </button>
+                </ButtonShared>
               ) : (
-                <button type="button" onClick={ favorite }>
+                <ButtonShared type="button" onClick={ favorite }>
                   <img src={ blackHeart } alt="heartBlack" data-testid="favorite-btn" />
-                </button>
+                </ButtonShared>
               )}
-            </div>
-          </div>
+            </ContainerButtonShared>
+          </ContainerCategoryRecipes>
           <div>
-            <h3 data-testid="recipe-title">
+            <Titleh3P data-testid="recipe-title">
               { `${details.strMeal}`.toUpperCase() || `${details.strDrink}`.toUpperCase }
-            </h3>
+            </Titleh3P>
           </div>
         </ContainerRecipes>
       </ContainerRecipes>
-
-      <div>
-        <h2>Ingredients</h2>
-        <ul>
+      <ContainerIngredients>
+        <TitleH2>Ingredients</TitleH2>
+        <ContainerUl>
           {ingredients
           && ingredients.map((e, i) => (
             <li
@@ -188,59 +203,63 @@ export default function RecipeDetails() {
               {e}
             </li>
           ))}
-        </ul>
-      </div>
-      <h3>Instructions</h3>
-      <p data-testid="instructions">
-        { details.strInstructions }
-      </p>
+        </ContainerUl>
 
-      <iframe
-        title={ details.strMeal || details.strDrink }
-        data-testid="video"
-        width="320"
-        height="280"
-        src={ details.strYoutube || details.strVideo }
-      />
-      {titlePage === 'meals'
-        ? (
-          <Carousel fade>
-            {recommendationDrinks.map((e, i) => (
-              <Carousel.Item key={ i }>
-                <div data-testid={ `${i}-recommendation-card` }>
-                  <img
-                    src={ e.strDrinkThumb }
-                    alt={ e.strDrink }
-                    width="250px"
-                    height="250px"
-                  />
-                  <div data-testid={ `${i}-recommendation-title` }>
-                    <p>{e.strDrink}</p>
+        <TitleH2>Instructions</TitleH2>
+        <ContainerP data-testid="instructions">
+          { details.strInstructions }
+        </ContainerP>
+        <TitleH2>Video</TitleH2>
+        <IframeContainer
+          name={ details.strMeal || details.strDrink }
+          title={ details.strMeal || details.strDrink }
+          data-testid="video"
+          width="335"
+          height="285"
+          src={ details.strYoutube || details.strVideo }
+        />
+      </ContainerIngredients>
+      <ContainerCarousel>
+        {titlePage === 'meals'
+          ? (
+            <Carousel fade>
+              {recommendationDrinks.map((e, i) => (
+                <Carousel.Item key={ i }>
+                  <div data-testid={ `${i}-recommendation-card` }>
+                    <img
+                      src={ e.strDrinkThumb }
+                      alt={ e.strDrink }
+                      width="250px"
+                      height="250px"
+                    />
+                    <div data-testid={ `${i}-recommendation-title` }>
+                      <p>{e.strDrink}</p>
+                    </div>
                   </div>
-                </div>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        )
-        : (
-          <Carousel fade>
-            {recommendationMeals.map((e, i) => (
-              <Carousel.Item key={ i }>
-                <div data-testid={ `${i}-recommendation-card` }>
-                  <img
-                    src={ e.strMealThumb }
-                    alt={ e.strMeal }
-                    width="250px"
-                    height="250px"
-                  />
-                  <div data-testid={ `${i}-recommendation-title` }>
-                    <p>{e.strMeal}</p>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          )
+          : (
+            <Carousel fade>
+              {recommendationMeals.map((e, i) => (
+                <Carousel.Item key={ i }>
+                  <div data-testid={ `${i}-recommendation-card` }>
+                    <img
+                      src={ e.strMealThumb }
+                      alt={ e.strMeal }
+                      width="250px"
+                      height="250px"
+                    />
+                    <div data-testid={ `${i}-recommendation-title` }>
+                      <p>{e.strMeal}</p>
+                    </div>
                   </div>
-                </div>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        )}
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          )}
+      </ContainerCarousel>
       <ButtonRecipesDetails
         type="button"
         data-testid="start-recipe-btn"
