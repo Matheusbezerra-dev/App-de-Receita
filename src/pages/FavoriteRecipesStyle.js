@@ -16,20 +16,20 @@ export const AllImage = styled.button`
   background-color: white;
 `;
 
-export const ButtonAll = styled.button`
-  background-color: white;
-  border: none;
-`;
+// export const ButtonAll = styled.button`
+//   background-color: white;
+//   border: none;
+// `;
 
-export const ButtonMeals = styled.button`
-  background-color: white;
-  border: none;
-`;
+// export const ButtonMeals = styled.button`
+//   background-color: white;
+//   border: none;
+// `;
 
-export const ButtonDrinks = styled.button`
-  background-color: white;
-  border: none;
-`;
+// export const ButtonDrinks = styled.button`
+//   background-color: white;
+//   border: none;
+// `;
 
 export const ContainerFavorite = styled.div`
   display: flex;
@@ -83,26 +83,32 @@ export const ButtonNameFavorite = styled.button`
   height: 15px;
   background-color: white;
   display: flex;
-  margin-left: 10%;
+  margin-left: none;
   border: none;
 `;
 
 export const NameFavorite = styled.p`
   font-weight: bold;
-  font-size: 13px;
+  font-size: 15px;
   font-family: Epilogue;
+  width: 200px;
+  // border: 1px solid blue;
 `;
 
 export const CategoryRecipeCard = styled.p`
   display: flex;
-  font-size: 10px;
+  font-size: 12px;
   font-family: Epilogue;
-  margin-left: 10%; 
+  margin-left: 10%;
+  margin-top: 10px;
+  width: 200px;
+  // border: 1px solid red;
 `;
 
 export const ButtonShareAndFavorite = styled.div`
   display: flex;
   flex-direction: row;
+  width: 200px;
   // justify-content: space-around;
   // aling-items: center;
   margin-top: 18px;
@@ -113,15 +119,23 @@ export const ButtonShare = styled.button`
   background-color: white;
   border: none;
   margin-left: 10%;
+  // border: 1px solid red;
   // color: #FCC436;
 `;
+
+// export const ImageShare = styled.img`
+//   color: #FCC436;
+// `;
 
 export const ButtonFavorite = styled.button`
   border: none;
   background-color: white;
-  margin-left: 20%;
+  margin-left: 15%;
+  // color: #FCC436;
 `;
 
 export const ImgFavoriteBySideShare = styled.img`
   background-color: white;
+  // border: 1px solid black;
+  // color: #FCC436;
 `;

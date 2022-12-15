@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import shareIcon from '../images/sharedIcon.png';
-import blackHeartIcon from '../images/FavoriteHead.png';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 /* import '../components/FavoriteRecipes.css'; */
 
 import {
   ContainerButtonsTop,
   AllImage,
+  // ButtonAll,
+  // ButtonMeals,
+  // ButtonDrinks,
   ImgFavorite,
   ButtonImgFavorite,
   DivFavoriteCard,
@@ -20,8 +23,10 @@ import {
   NameFavorite,
   ButtonShareAndFavorite,
   ButtonShare,
+  // ImageShare,
   ButtonFavorite,
   ImgFavoriteBySideShare,
+  // ImageShare,
 } from './FavoriteRecipesStyle';
 
 import AllFavorite from '../images/AllFavorite.png';
@@ -81,6 +86,7 @@ export default function FavoriteRecipes() {
             data-testid="filter-by-all-btn"
             onClick={ () => filterFavorites('all') }
           >
+            {/* All */}
             <img src={ AllFavorite } alt="favorite logo" />
           </AllImage>
           <AllImage
@@ -88,6 +94,7 @@ export default function FavoriteRecipes() {
             data-testid="filter-by-meal-btn"
             onClick={ () => filterFavorites('meal') }
           >
+            {/* Meals */}
             <img src={ FoodsFavorite } alt="meals logo" />
           </AllImage>
           <AllImage
@@ -95,6 +102,7 @@ export default function FavoriteRecipes() {
             data-testid="filter-by-drink-btn"
             onClick={ () => filterFavorites('drink') }
           >
+            {/* Drinks */}
             <img src={ DrinksFavorite } alt="drink logo" />
           </AllImage>
         </ContainerButtonsTop>
@@ -166,56 +174,62 @@ export default function FavoriteRecipes() {
             );
           }
           return (
-            <div key={ favRecipe.id } data-testid={ `${index}-recipe-card` }>
-              <button
+            <DivFavoriteCard key={ favRecipe.id } data-testid={ `${index}-recipe-card` }>
+              <ButtonImgFavorite
                 type="button"
                 onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
               >
-                <img
+                <ImgFavorite
                   className="recipe-img"
                   src={ favRecipe.image }
                   alt={ favRecipe.name }
                   data-testid={ `${index}-horizontal-image` }
                 />
-              </button>
-              <button
-                type="button"
-                onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
-              >
-                <p
-                  data-testid={ `${index}-horizontal-name` }
-                >
-                  {favRecipe.name}
-                </p>
-              </button>
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                {favRecipe.alcoholicOrNot}
-              </p>
-              <button
-                type="button"
-                onClick={ () => setUrlCopy(favRecipe.id, favRecipe.type) }
-              >
-                <img
-                  className="img"
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  src={ shareIcon }
-                  alt="button"
-                />
-              </button>
-              <button
-                type="button"
-                onClick={ () => removeFavorite(favRecipe.id) }
-              >
-                <img
-                  className="img"
-                  data-testid={ `${index}-horizontal-favorite-btn` }
-                  src={ blackHeartIcon }
-                  alt="button"
-                />
-              </button>
-            </div>
+              </ButtonImgFavorite>
+              <AllButtonsBySideRecipeImg>
+                <NameCategoryFavorite>
+                  <ButtonNameFavorite
+                    type="button"
+                    onClick={ () => redirectToDetails(favRecipe.id, favRecipe.type) }
+                  >
+                    <NameFavorite
+                      data-testid={ `${index}-horizontal-name` }
+                    >
+                      {favRecipe.name}
+                    </NameFavorite>
+                  </ButtonNameFavorite>
+                  <CategoryRecipeCard
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    {favRecipe.alcoholicOrNot}
+                  </CategoryRecipeCard>
+                </NameCategoryFavorite>
+                <ButtonShareAndFavorite>
+                  <ButtonShare
+                    type="button"
+                    onClick={ () => setUrlCopy(favRecipe.id, favRecipe.type) }
+                  >
+                    <img
+                      className="img"
+                      data-testid={ `${index}-horizontal-share-btn` }
+                      src={ shareIcon }
+                      alt="button"
+                    />
+                  </ButtonShare>
+                  <ButtonFavorite
+                    type="button"
+                    onClick={ () => removeFavorite(favRecipe.id) }
+                  >
+                    <ImgFavoriteBySideShare
+                      className="img"
+                      data-testid={ `${index}-horizontal-favorite-btn` }
+                      src={ blackHeartIcon }
+                      alt="button"
+                    />
+                  </ButtonFavorite>
+                </ButtonShareAndFavorite>
+              </AllButtonsBySideRecipeImg>
+            </DivFavoriteCard>
           );
         })}
       </ContainerFavorite>
