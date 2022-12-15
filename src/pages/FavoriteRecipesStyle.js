@@ -11,6 +11,21 @@ export const ContainerButtonsTop = styled.div`
   border: 1px solid black;
 `;
 
+export const ButtonAll = styled.button`
+  background-color: white;
+  border: none;
+`;
+
+export const ButtonMeals = styled.button`
+  background-color: white;
+  border: none;
+`;
+
+export const ButtonDrinks = styled.button`
+  background-color: white;
+  border: none;
+`;
+
 export const ContainerFavorite = styled.div`
   display: flex;
   flex-direction: column;
