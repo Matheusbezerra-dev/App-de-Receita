@@ -1,10 +1,25 @@
+/* eslint-disable max-lines */
 import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
+import shareIcon from '../images/sharedIcon.png';
 import AppContext from '../context/AppContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { LabelRecipeInProgress } from '../style/styled';
+import blackHeartIcon from '../images/FavoriteHead.png';
+import {
+  ContainerRecipesDetails,
+  ButtonRecipesDetails,
+  ImgRecipesDetails,
+  DivOpacidade,
+  ContainerRecipes,
+  ContainerCategoryRecipes,
+  ContainerButtonShared,
+  ContainerIngredientsProgress,
+  TitleH2,
+  ContainerP,
+  ButtonShared,
+  Titleh3P,
+  ContainerLabel,
+} from './RecipeDetailsDetails';
 
 const copy = require('clipboard-copy');
 
@@ -156,76 +171,106 @@ export default function RecipeInProgress() {
   };
 
   return (
-    <div>
+    <ContainerRecipesDetails>
       { details.length >= 1 && (
-        <section>
-          <h3 data-testid="recipe-title">{details[0][`str${acess}`]}</h3>
-          <img
+        <ContainerRecipes>
+          <ImgRecipesDetails
             src={ details[0][`str${acess}Thumb`] }
             alt="recipe-ph"
             data-testid="recipe-photo"
             width="300px"
           />
-          <button type="button" data-testid="share-btn" onClick={ handleClickShared }>
-            {copied ? (<p>Link copied!</p>) : (
-              <img
-                src={ shareIcon }
-                alt="share"
-              />
-            )}
-
-          </button>
-
-          {favorito ? (
-            <button
-              type="button"
-              onClick={ handleClickFavorite }
-            >
-              <img src={ blackHeartIcon } alt="coração" data-testid="favorite-btn" />
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={ handleClickFavorite }
-            >
-              <img src={ whiteHeartIcon } alt="coração" data-testid="favorite-btn" />
-            </button>
-          )}
-
-          <h6 data-testid="recipe-category">{details[0].strCategory}</h6>
-          <p data-testid="instructions">{details[0].strInstructions}</p>
-        </section>
+          <DivOpacidade>  </DivOpacidade>
+          <ContainerRecipes>
+            <ContainerCategoryRecipes>
+              <div>
+                <h4 data-testid="recipe-category">{details[0].strCategory}</h4>
+              </div>
+              <ContainerButtonShared>
+                <ButtonShared
+                  type="button"
+                  data-testid="share-btn"
+                  onClick={ handleClickShared }
+                >
+                  {copied ? (<p>Link copied!</p>) : (
+                    <img
+                      src={ shareIcon }
+                      alt="share"
+                    />
+                  )}
+                </ButtonShared>
+                {favorito ? (
+                  <ButtonShared
+                    type="button"
+                    onClick={ handleClickFavorite }
+                  >
+                    <img
+                      src={ blackHeartIcon }
+                      alt="coração"
+                      data-testid="favorite-btn"
+                    />
+                  </ButtonShared>
+                ) : (
+                  <ButtonShared
+                    type="button"
+                    onClick={ handleClickFavorite }
+                  >
+                    <img
+                      src={ whiteHeartIcon }
+                      alt="coração"
+                      data-testid="favorite-btn"
+                    />
+                  </ButtonShared>
+                )}
+              </ContainerButtonShared>
+            </ContainerCategoryRecipes>
+            <Titleh3P data-testid="recipe-title">{details[0][`str${acess}`]}</Titleh3P>
+          </ContainerRecipes>
+        </ContainerRecipes>
       )}
-      <LabelRecipeInProgress>
-        {ingredient.length > 0 && (
-          ingredient.map((e, i) => (
-            <label
-              key={ i }
-              data-testid={ `${i}-ingredient-step` }
-              htmlFor={ `checkbox${i}` }
-              className={ checkedList.includes(e[1])
-                ? 'checkedInput' : 'nonCheckedInput' }
-            >
-              {e[1]}
-              <input
-                type="checkbox"
-                id={ `checkbox${i}` }
-                checked={ !!checkedList.includes(e[1]) }
-                onChange={ () => handleClickCheck(e[1]) }
-              />
-            </label>
-          ))
-        )}
-      </LabelRecipeInProgress>
-      <button
+      <ContainerIngredientsProgress>
+        <TitleH2>Ingredients</TitleH2>
+        <ContainerLabel>
+          {ingredient.length > 0 && (
+            ingredient.map((e, i) => (
+              <label
+                key={ i }
+                data-testid={ `${i}-ingredient-step` }
+                htmlFor={ `checkbox${i}` }
+                className={ checkedList.includes(e[1])
+                  ? 'checkedInput' : 'nonCheckedInput' }
+              >
+                <input
+                  type="checkbox"
+                  id={ `checkbox${i}` }
+                  checked={ !!checkedList.includes(e[1]) }
+                  onChange={ () => handleClickCheck(e[1]) }
+                />
+                {e[1]}
+              </label>
+            ))
+          )}
+        </ContainerLabel>
+
+        <TitleH2>Instructions</TitleH2>
+
+        <ContainerP
+          data-testid="instructions"
+        >
+          {details[0].strInstructions}
+        </ContainerP>
+
+      </ContainerIngredientsProgress>
+
+      <ButtonRecipesDetails
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ disabled }
         onClick={ handleClickFinsh }
       >
         Finish Recipe
-      </button>
-    </div>
+      </ButtonRecipesDetails>
+    </ContainerRecipesDetails>
   );
 }
 

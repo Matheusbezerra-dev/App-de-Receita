@@ -81,7 +81,7 @@ export const TitleH2 = styled.h2`
   margin-left: 10px;
 `;
 
-export const ContainerP = styled.p`
+export const ContainerP = styled.div`
   border: 1px solid rgb(177, 177, 177);
   width: 335px;
   border-radius: 5px;
@@ -108,4 +108,27 @@ export const TextSpan = styled.span`
 export const Titleh3P = styled.h3`
   color: rgb(255, 255, 255);
   margin-top: 20px;
+`;
+
+export const ContainerLabel = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(177, 177, 177);
+  width: 335px;
+  border-radius: 5px;
+  padding: 10px;
+`;
+
+export const Label = styled.label`
+
+`;
+
+export const ContainerIngredientsProgress = styled.div`
+  margin-top: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  width: 335px;
+  margin-bottom: 65px;
 `;
